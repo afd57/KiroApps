@@ -1,0 +1,1366 @@
+/* Scoped strictly to .haru-shell so KiroCrew global theme variables (:root / body) are NEVER modified */
+.haru-shell {
+  --haru-bg: var(--bg, #0f1117);
+  --haru-card: var(--card, #161922);
+  --haru-elevated: var(--bg-elevated, #1d2230);
+  --haru-hover: var(--bg-hover, rgba(128, 128, 128, 0.1));
+  --haru-text: var(--text, #e6edf3);
+  --haru-text-strong: var(--text-strong, var(--text, #ffffff));
+  --haru-muted: var(--muted, #8b949e);
+  --haru-border: var(--border, rgba(128, 128, 128, 0.2));
+  --haru-border-strong: var(--border-strong, rgba(128, 128, 128, 0.35));
+  --haru-accent: var(--accent, #e07a5f);
+  --haru-accent-fg: var(--accent-fg, #ffffff);
+  --haru-accent-subtle: var(--accent-subtle, color-mix(in srgb, var(--haru-accent) 14%, transparent));
+  --haru-ok: var(--ok, #2fbf71);
+  --haru-warn: var(--warn, #f59e0b);
+  --haru-danger: var(--danger, #ef4444);
+  --haru-font-sans: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  --haru-font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+  background: var(--haru-bg);
+  color: var(--haru-text);
+  font-family: var(--haru-font-sans);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.haru-shell *,
+.haru-shell *::before,
+.haru-shell *::after {
+  box-sizing: border-box;
+}
+
+/* Clean, Minimal Top Header */
+.haru-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--haru-card);
+  border-bottom: 1px solid var(--haru-border);
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.haru-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.haru-brand-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--haru-text-strong);
+  letter-spacing: -0.01em;
+}
+
+.haru-brand-subtitle {
+  font-size: 12px;
+  color: var(--haru-muted);
+}
+
+.haru-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--haru-bg);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--haru-border);
+}
+
+.haru-nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--haru-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-nav-tab:hover {
+  color: var(--haru-text);
+  background: var(--haru-hover);
+}
+
+.haru-nav-tab.active {
+  background: var(--haru-card);
+  color: var(--haru-text-strong);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.haru-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--haru-accent-subtle);
+  color: var(--haru-accent);
+}
+
+.haru-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Main Content Area */
+.haru-main-area {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.haru-workspace-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 28px 64px;
+}
+
+.haru-workspace-container {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Quiet Quick-Action Bar */
+.haru-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 6px;
+}
+
+.haru-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.haru-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--haru-border);
+  background: var(--haru-card);
+  color: var(--haru-text);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-btn:hover {
+  background: var(--haru-hover);
+  border-color: var(--haru-border-strong);
+}
+
+.haru-btn-primary {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.haru-btn-primary:hover {
+  opacity: 0.92;
+  background: var(--haru-accent);
+}
+
+.haru-btn-session {
+  background: color-mix(in srgb, var(--haru-ok) 14%, transparent);
+  color: var(--haru-ok);
+  border-color: color-mix(in srgb, var(--haru-ok) 35%, transparent);
+  font-weight: 600;
+}
+
+.haru-btn-session:hover {
+  background: color-mix(in srgb, var(--haru-ok) 22%, transparent);
+  border-color: var(--haru-ok);
+}
+
+/* Editor Surface */
+.haru-doc-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Header Block (# Today) */
+.haru-block-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 4px 4px;
+  border-bottom: 1px solid var(--haru-border);
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.haru-block-header:first-child {
+  margin-top: 0;
+  padding-top: 2px;
+}
+
+.haru-header-hash {
+  font-family: var(--haru-font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--haru-accent);
+  user-select: none;
+}
+
+.haru-header-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--haru-text-strong);
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+  padding: 2px 0;
+}
+
+/* Note Block */
+.haru-block-note {
+  display: flex;
+  align-items: center;
+  padding: 1px 4px;
+}
+
+.haru-note-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--haru-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  outline: none;
+  padding: 2px 0;
+}
+
+.haru-note-input:focus {
+  color: var(--haru-text);
+}
+
+/* Task Row ([] say hello Aziz) */
+.haru-block-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: background 0.12s ease, border-color 0.12s ease;
+  flex-wrap: wrap;
+}
+
+.haru-block-task:hover {
+  background: var(--haru-hover);
+  border-color: var(--haru-border);
+}
+
+.haru-block-task.is-running {
+  background: color-mix(in srgb, var(--haru-ok) 7%, var(--haru-card));
+  border-color: color-mix(in srgb, var(--haru-ok) 32%, var(--haru-border));
+}
+
+.haru-task-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.haru-checkbox {
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  border: 1.5px solid var(--haru-border-strong);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: var(--haru-accent-fg);
+  font-size: 11px;
+  padding: 0;
+  transition: all 0.12s ease;
+}
+
+.haru-checkbox:hover {
+  border-color: var(--haru-accent);
+}
+
+.haru-checkbox.checked {
+  background: var(--haru-ok);
+  border-color: var(--haru-ok);
+  color: #fff;
+}
+
+.haru-task-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--haru-text-strong);
+  font-size: 14px;
+  line-height: 1.4;
+  outline: none;
+  min-width: 120px;
+}
+
+.haru-task-input.checked {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+/* Task Control Bar (Right side of task row) */
+.haru-task-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.haru-select {
+  appearance: auto;
+  background: var(--haru-elevated);
+  color: var(--haru-text);
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  max-width: 140px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.haru-select:hover,
+.haru-select:focus {
+  border-color: var(--haru-border-strong);
+}
+
+.haru-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.haru-status-pill.running {
+  background: color-mix(in srgb, var(--haru-ok) 15%, transparent);
+  color: var(--haru-ok);
+}
+
+.haru-status-pill.completed {
+  background: var(--haru-hover);
+  color: var(--haru-muted);
+}
+
+.haru-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.haru-status-pill.running .haru-status-dot {
+  animation: haru-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes haru-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+/* Raw Markdown Textarea */
+.haru-raw-textarea {
+  width: 100%;
+  min-height: 360px;
+  background: var(--haru-elevated);
+  color: var(--haru-text);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+  padding: 14px;
+  font-family: var(--haru-font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+
+.haru-raw-textarea:focus {
+  border-color: var(--haru-accent);
+}
+
+/* Rich Workspace Editor & Hierarchical Task Tree Styles */
+.haru-rich-doc {
+  gap: 12px;
+}
+
+.haru-rich-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--haru-border);
+  margin-bottom: 4px;
+}
+
+.haru-rich-toolbar-left,
+.haru-rich-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.haru-btn-sm {
+  padding: 4px 8px;
+  font-size: 11.5px;
+}
+
+.haru-btn-active {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.haru-btn-ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--haru-muted);
+  font-size: 11.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-btn-ghost:hover {
+  background: var(--haru-hover);
+  color: var(--haru-text);
+  border-color: var(--haru-border);
+}
+
+.haru-btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--haru-muted);
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+
+.haru-section-wrap:hover .haru-btn-icon,
+.haru-parent-task-card:hover .haru-btn-icon,
+.haru-subtask-row:hover .haru-btn-icon,
+.haru-block-note:hover .haru-btn-icon {
+  opacity: 0.65;
+}
+
+.haru-btn-icon:hover {
+  opacity: 1 !important;
+  background: color-mix(in srgb, #ef4444 15%, transparent);
+  color: #ef4444;
+}
+
+.haru-btn-icon-sm {
+  font-size: 10.5px;
+  padding: 2px 4px;
+}
+
+.haru-blocks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Section Header Enhancements */
+.haru-section-wrap {
+  margin-top: 14px;
+  margin-bottom: 2px;
+}
+
+.haru-section-wrap:first-child {
+  margin-top: 2px;
+}
+
+.haru-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.4;
+  transition: opacity 0.12s ease;
+}
+
+.haru-block-header:hover .haru-section-actions {
+  opacity: 1;
+}
+
+.haru-header-rendered {
+  flex: 1;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--haru-text-strong);
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.haru-header-rendered:hover {
+  color: var(--haru-accent);
+}
+
+/* Parent Task Card (Task Container) */
+.haru-parent-task-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.haru-parent-task-card:hover {
+  border-color: var(--haru-border-strong);
+  background: color-mix(in srgb, var(--haru-card) 92%, var(--haru-hover));
+}
+
+.haru-parent-task-card.is-running {
+  background: color-mix(in srgb, var(--haru-ok) 8%, var(--haru-card));
+  border-color: color-mix(in srgb, var(--haru-ok) 45%, var(--haru-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--haru-ok) 25%, transparent);
+}
+
+.haru-parent-task-card.is-completed {
+  opacity: 0.85;
+}
+
+.haru-task-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.haru-parent-row {
+  padding: 2px 0;
+}
+
+.haru-task-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.haru-task-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.haru-task-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+}
+
+/* Rendered Task / Markdown preview */
+.haru-task-rendered,
+.haru-subtask-rendered {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--haru-text-strong);
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.haru-task-rendered.checked,
+.haru-subtask-rendered.checked {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+.haru-note-rendered {
+  width: 100%;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--haru-text);
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.haru-placeholder-note {
+  color: var(--haru-muted);
+  font-style: italic;
+}
+
+/* Mention & Tag Chips */
+.haru-mention-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--haru-accent) 15%, transparent);
+  color: var(--haru-accent);
+  margin: 0 2px;
+}
+
+.haru-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-family: var(--haru-font-mono);
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  color: var(--haru-muted);
+  margin: 0 2px;
+}
+
+/* Subtask Badge */
+.haru-subtask-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  color: var(--haru-muted);
+  white-space: nowrap;
+}
+
+/* + Subtask Button on Parent Task */
+.haru-btn-add-subtask {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px dashed var(--haru-border);
+  background: transparent;
+  color: var(--haru-muted);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+.haru-parent-task-card:hover .haru-btn-add-subtask {
+  opacity: 1;
+}
+
+.haru-btn-add-subtask:hover {
+  background: var(--haru-hover);
+  border-color: var(--haru-accent);
+  color: var(--haru-accent);
+}
+
+/* Subtasks Tree */
+.haru-subtasks-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 18px;
+  margin-top: 4px;
+  border-left: 2px solid color-mix(in srgb, var(--haru-border) 60%, transparent);
+  margin-left: 8px;
+}
+
+.haru-subtask-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  border-radius: 4px;
+}
+
+.haru-subtask-row.is-completed {
+  opacity: 0.7;
+}
+
+.haru-tree-line {
+  color: var(--haru-muted);
+  opacity: 0.55;
+  user-select: none;
+  font-family: var(--haru-font-mono);
+  font-size: 11px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.haru-subtask-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.haru-checkbox-sm {
+  width: 15px;
+  height: 15px;
+  font-size: 9.5px;
+}
+
+.haru-subtask-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--haru-text);
+  font-size: 13.5px;
+  line-height: 1.4;
+  outline: none;
+}
+
+.haru-subtask-input.checked {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+.haru-add-subtask-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0 2px;
+}
+
+.haru-btn-subtask-inline {
+  background: transparent;
+  border: none;
+  font-size: 11.5px;
+  color: var(--haru-muted);
+  cursor: pointer;
+  padding: 1px 4px;
+  border-radius: 4px;
+  transition: all 0.12s ease;
+}
+
+.haru-btn-subtask-inline:hover {
+  color: var(--haru-accent);
+  background: var(--haru-hover);
+}
+
+/* Bottom Inserters */
+.haru-bottom-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--haru-border);
+}
+
+/* =========================================================
+   SimpleInlineEditor & Custom Marked Renderer Styles
+   ========================================================= */
+
+.haru-simple-editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  padding: 16px 24px;
+  box-sizing: border-box;
+}
+
+.haru-simple-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+}
+
+.haru-toolbar-left,
+.haru-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.haru-select-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--haru-muted);
+}
+
+.haru-select-sm {
+  padding: 3px 8px;
+  font-size: 11.5px;
+  height: 28px;
+}
+
+.haru-view-segment {
+  display: flex;
+  border-radius: 6px;
+  border: 1px solid var(--haru-border);
+  overflow: hidden;
+  background: var(--haru-card);
+}
+
+.haru-segment-btn {
+  padding: 5px 11px;
+  font-size: 11.5px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--haru-border);
+  color: var(--haru-muted);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-segment-btn:last-child {
+  border-right: none;
+}
+
+.haru-segment-btn:hover {
+  color: var(--haru-text);
+  background: var(--haru-hover);
+}
+
+.haru-segment-btn.active {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  font-weight: 600;
+}
+
+/* Body / Panes */
+.haru-simple-workspace-body {
+  flex: 1;
+  min-height: 520px;
+  display: flex;
+  gap: 16px;
+}
+
+.haru-simple-workspace-body.mode-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.haru-simple-workspace-body.mode-interactive .haru-simple-preview-pane,
+.haru-simple-workspace-body.mode-editor .haru-simple-editor-pane {
+  flex: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.haru-simple-editor-pane,
+.haru-simple-preview-pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.haru-pane-header {
+  padding: 10px 14px;
+  background: var(--haru-elevated);
+  border-bottom: 1px solid var(--haru-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.haru-pane-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--haru-text-strong);
+}
+
+.haru-pane-hint {
+  font-size: 11px;
+  color: var(--haru-muted);
+}
+
+.haru-simple-textarea {
+  flex: 1;
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  color: var(--haru-text);
+  font-family: var(--haru-font-mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.haru-interactive-stream-surface {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Custom Marked Overrides Styles */
+.haru-simple-heading-wrap {
+  margin-top: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--haru-border);
+  padding-bottom: 4px;
+}
+
+.haru-simple-heading-wrap:first-child {
+  margin-top: 0;
+}
+
+.haru-simple-heading {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--haru-text-strong);
+}
+
+.haru-heading-anchor {
+  text-decoration: none;
+  color: var(--haru-accent);
+  font-family: var(--haru-font-mono);
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.haru-heading-anchor:hover {
+  opacity: 1;
+}
+
+.haru-simple-list {
+  margin: 4px 0 8px;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.haru-list-ordered {
+  list-style-type: decimal;
+}
+
+.haru-list-unordered {
+  list-style-type: disc;
+}
+
+.haru-simple-list.depth-level-1 {
+  list-style-type: circle;
+  padding-left: 20px;
+  margin: 4px 0;
+}
+
+.haru-simple-list.depth-level-2 {
+  list-style-type: square;
+  padding-left: 20px;
+  margin: 4px 0;
+}
+
+.haru-simple-li {
+  margin: 2px 0;
+}
+
+.haru-li-main-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.12s ease;
+}
+
+.haru-li-main-row:hover {
+  background: var(--haru-hover);
+}
+
+.haru-li-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1;
+}
+
+.haru-simple-bullet {
+  color: var(--haru-muted);
+  user-select: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.haru-simple-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--haru-border-strong);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #fff;
+  flex-shrink: 0;
+  margin-top: 2px;
+  padding: 0;
+  transition: all 0.12s ease;
+}
+
+.haru-simple-checkbox:hover {
+  border-color: var(--haru-accent);
+}
+
+.haru-simple-checkbox.checked {
+  background: var(--haru-ok);
+  border-color: var(--haru-ok);
+}
+
+.haru-li-text {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--haru-text-strong);
+}
+
+.haru-li-text.is-checked-text {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+.haru-li-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.haru-simple-subtask-count {
+  font-size: 10.5px;
+  font-family: var(--haru-font-mono);
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  color: var(--haru-muted);
+  white-space: nowrap;
+}
+
+.haru-btn-mini {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--haru-border);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.12s ease;
+}
+
+.haru-btn-run {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  border-color: transparent;
+}
+
+.haru-btn-run:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.haru-simple-p {
+  margin: 4px 0 8px;
+  line-height: 1.5;
+  color: var(--haru-text);
+  font-size: 14px;
+}
+
+.haru-simple-quote {
+  margin: 6px 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--haru-accent);
+  color: var(--haru-muted);
+  font-style: italic;
+}
+
+.haru-simple-code-container {
+  margin: 8px 0;
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--haru-elevated);
+}
+
+.haru-code-header {
+  padding: 3px 8px;
+  font-size: 10px;
+  font-family: var(--haru-font-mono);
+  color: var(--haru-muted);
+  border-bottom: 1px solid var(--haru-border);
+}
+
+.haru-simple-code-block {
+  margin: 0;
+  padding: 10px 12px;
+  font-family: var(--haru-font-mono);
+  font-size: 12.5px;
+  overflow-x: auto;
+}
+
+.haru-simple-inline-code {
+  font-family: var(--haru-font-mono);
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+}
+
+.haru-simple-hr {
+  border: none;
+  border-top: 1px solid var(--haru-border);
+  margin: 12px 0;
+}
+
+/* Editor Mode Toggle Pill in Top Bar */
+.haru-editor-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 6px;
+}
+
+.haru-mode-btn {
+  background: transparent;
+  border: none;
+  padding: 4px 9px;
+  font-size: 11.5px;
+  color: var(--haru-muted);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-mode-btn.active {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  font-weight: 600;
+}
+
+/* Inline Editable Field in Interactive Stream Preview */
+.haru-editable-field {
+  outline: none;
+  cursor: text;
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin: -1px -5px;
+  display: inline-block;
+  min-width: 40px;
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.haru-editable-field:hover {
+  background: color-mix(in srgb, var(--haru-accent) 8%, transparent);
+}
+
+.haru-editable-field:focus {
+  background: var(--haru-card);
+  box-shadow: 0 0 0 1.5px var(--haru-accent);
+  cursor: text;
+}
+
+/* Enhanced Highlight for Mentions & Tags */
+.haru-mention-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--haru-accent) 18%, transparent);
+  color: var(--haru-accent);
+  border: 1px solid color-mix(in srgb, var(--haru-accent) 30%, transparent);
+  margin: 0 2px;
+  user-select: none;
+}
+
+.haru-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-family: var(--haru-font-mono);
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  color: var(--haru-text-strong);
+  margin: 0 2px;
+  user-select: none;
+}
+
+/* Simple Task Card with TaskControlBar */
+.haru-simple-task-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.haru-simple-task-card:hover {
+  border-color: var(--haru-border-strong);
+  background: color-mix(in srgb, var(--haru-card) 94%, var(--haru-hover));
+}
+
+.haru-simple-task-card.is-running {
+  background: color-mix(in srgb, var(--haru-ok) 8%, var(--haru-card));
+  border-color: color-mix(in srgb, var(--haru-ok) 45%, var(--haru-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--haru-ok) 25%, transparent);
+}
+
+.haru-simple-task-card.is-completed {
+  opacity: 0.82;
+}
+
+.haru-number-prefix {
+  font-family: var(--haru-font-mono);
+  font-weight: 700;
+  color: var(--haru-accent);
+  font-size: 13.5px;
+  user-select: none;
+  min-width: 18px;
+}
+
+.haru-task-title-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--haru-text-strong);
+  cursor: pointer;
+}
+
+.haru-task-title-text.is-checked-text {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+.haru-inline-edit-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--haru-card);
+  border: 1.5px solid var(--haru-accent);
+  border-radius: 4px;
+  color: var(--haru-text-strong);
+  font-size: 14px;
+  padding: 2px 8px;
+  outline: none;
+}
+
+.haru-subtask-title-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--haru-text);
+  cursor: pointer;
+}
+
+.haru-subtask-title-text.is-checked-text {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+.haru-simple-note-row {
+  padding: 3px 6px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--haru-text);
+}
+
+.haru-note-content {
+  cursor: pointer;
+}
+
+
+
+

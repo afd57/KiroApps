@@ -1,0 +1,96 @@
+{
+  "name": "haru",
+  "version": "0.1.3",
+  "displayName": "Haru",
+  "description": "Simple markdown notes & task runner for KiroCrew sessions, with Radar for unfinished tasks.",
+  "author": "Haru Team",
+  "icon": "assets/icon.svg",
+  "minKiroCrewVersion": "0.1.0",
+  "ui": {
+    "entry": "dist/haru-0.1.2.mjs",
+    "nav": [
+      {
+        "label": "Haru",
+        "icon": "FileText",
+        "path": "/apps/haru",
+        "group": "workspace",
+        "order": 10
+      }
+    ],
+    "pages": [
+      {
+        "route": "/apps/haru",
+        "label": "Haru",
+        "title": "Haru — Tasks & Notes",
+        "icon": "FileText",
+        "group": "workspace",
+        "order": 10
+      }
+    ]
+  },
+  "mcpServers": {
+    "haru-backend": {
+      "command": "node",
+      "args": [
+        "backend/server.mjs"
+      ],
+      "port": 9100,
+      "healthCheck": "/health",
+      "restartPolicy": "on-failure"
+    }
+  },
+  "agents": [
+    "agents/haru-executor.json"
+  ],
+  "skills": [
+    "skills/haru-task-runner"
+  ],
+  "permissions": {
+    "mcpTools": [
+      "read_file",
+      "write_file",
+      "edit_file",
+      "execute_command",
+      "search_files"
+    ],
+    "storage": true,
+    "network": true,
+    "memory": "shared",
+    "cron": true,
+    "api": [
+      "/apps/haru/api",
+      "/apps/haru/api/*",
+      "/api/apps/haru",
+      "/api/apps/haru/*",
+      "/api/agents",
+      "/api/agents/*",
+      "/api/models",
+      "/api/models/*",
+      "/api/chat",
+      "/api/chat/*",
+      "/api/chat/slots",
+      "/api/chat/slots/*",
+      "/api/sessions",
+      "/api/sessions/*",
+      "/api/crons",
+      "/api/status"
+    ],
+    "events": [
+      "slots",
+      "slots:user",
+      "chat_done",
+      "chat_status",
+      "chat_message",
+      "chat_chunk",
+      "refresh",
+      "dashboard"
+    ]
+  },
+  "tags": [
+    "productivity",
+    "markdown",
+    "tasks",
+    "sessions",
+    "radar"
+  ]
+}

@@ -1,0 +1,386 @@
+{
+  "blocks": [
+    {
+      "id": "hdr_ea648fc76f",
+      "type": "h1",
+      "text": "Oct 25 — Next Day",
+      "mentions": [],
+      "tags": [],
+      "createdAt": "2026-10-25T01:20:20.450Z"
+    },
+    {
+      "id": "tsk_3556f7f2ce",
+      "type": "task",
+      "text": "Termination",
+      "mentions": [],
+      "tags": [],
+      "taskStatus": "todo",
+      "agent": "haru-executor",
+      "model": "auto",
+      "session": null,
+      "createdAt": "2026-10-25T01:20:20.450Z"
+    },
+    {
+      "id": "tsk_6xfu8ply",
+      "type": "bullet",
+      "text": "test ",
+      "mentions": [],
+      "tags": [],
+      "taskStatus": "todo",
+      "agent": "haru-executor",
+      "model": "auto",
+      "session": null,
+      "createdAt": "2026-10-25T01:20:34.654Z"
+    },
+    {
+      "id": "blk_53i83p8i",
+      "type": "task",
+      "text": "  ddddd",
+      "mentions": [],
+      "tags": [],
+      "createdAt": "2026-10-25T01:20:46.252Z",
+      "taskStatus": "todo",
+      "agent": "haru-executor",
+      "model": "auto"
+    },
+    {
+      "id": "tsk_1ujvcqa4",
+      "type": "task",
+      "text": "",
+      "mentions": [],
+      "tags": [],
+      "taskStatus": "todo",
+      "agent": "haru-executor",
+      "model": "auto",
+      "session": null,
+      "createdAt": "2026-10-25T01:20:28.115Z"
+    },
+    {
+      "id": "hdr_today",
+      "type": "h1",
+      "text": "Oct 24 — Today (Saturday Sprint Wrap)",
+      "createdAt": "2026-10-24T09:00:00.000Z",
+      "mentions": [],
+      "tags": []
+    },
+    {
+      "id": "note_standup",
+      "type": "quote",
+      "text": "Focus today: clear @manager Slack asks, review @aziz2 UI polish PR, and prep Monday release notes.",
+      "createdAt": "2026-10-24T09:02:00.000Z",
+      "mentions": [
+        "manager",
+        "aziz2"
+      ],
+      "tags": []
+    },
+    {
+      "id": "tsk_slack_rate",
+      "type": "task",
+      "text": "Add sliding-window rate limiting to `/api/checkout` and send PR review @manager @backend-team #slack #urgent #api",
+      "taskStatus": "done",
+      "agent": "haru-executor",
+      "model": "claude-sonnet-4",
+      "session": {
+        "sessionId": "ses_901a4f",
+        "status": "ready_for_review",
+        "stepSummary": "Tests passing (18/18) · Drafted PR #241 for @backend-team",
+        "reviewSummary": "Implemented Redis token-bucket limiter (60 req/min per IP + user). Added unit & burst tests. Ready for @backend-team review.",
+        "prNumber": "PR #241",
+        "startedAt": "2026-10-24T10:12:00.000Z",
+        "updatedAt": "2026-10-24T10:16:00.000Z"
+      },
+      "sourceMeta": {
+        "source": "slack",
+        "externalUrl": "https://slack.com/app_redirect?channel=eng-backend",
+        "contextNotes": "Manager asked in #eng-backend after seeing checkout retry spike."
+      },
+      "createdAt": "2026-10-24T09:10:00.000Z",
+      "mentions": [
+        "manager",
+        "backend-team"
+      ],
+      "tags": [
+        "slack",
+        "urgent",
+        "api"
+      ]
+    },
+    {
+      "id": "tsk_asana_onboarding",
+      "type": "task",
+      "text": "Fix empty-state animation glitch on workspace onboarding card @aziz2 @manager #asana #frontend",
+      "taskStatus": "done",
+      "agent": "haru-executor",
+      "model": "auto",
+      "session": null,
+      "sourceMeta": {
+        "source": "asana",
+        "externalId": "asana_120849102",
+        "externalUrl": "https://app.asana.com/0/sprint/120849102",
+        "contextNotes": "Auto-synced via Intake: Card flickers on initial mount when user has 0 projects."
+      },
+      "createdAt": "2026-10-24T11:05:00.000Z",
+      "mentions": [
+        "aziz2",
+        "manager"
+      ],
+      "tags": [
+        "asana",
+        "frontend"
+      ]
+    },
+    {
+      "id": "note_sub",
+      "type": "bullet",
+      "text": "Check CSS transition keyframes in `OnboardingHero.tsx` before shipping to @aziz2.",
+      "createdAt": "2026-10-24T11:07:00.000Z",
+      "mentions": [
+        "aziz2"
+      ],
+      "tags": []
+    },
+    {
+      "id": "tsk_done_example",
+      "type": "task",
+      "text": "Update staging webhook HMAC rotation docs for Q4 audit @alex #docs #security",
+      "taskStatus": "done",
+      "agent": "kirocrew",
+      "model": "auto",
+      "session": {
+        "sessionId": "ses_772c1b",
+        "status": "completed",
+        "stepSummary": "Merged PR #238 · Reviewed by @alex",
+        "reviewSummary": "Updated docs/security/webhooks.md with dual-secret rollover guide.",
+        "prNumber": "PR #238",
+        "startedAt": "2026-10-24T08:20:00.000Z",
+        "updatedAt": "2026-10-24T08:31:00.000Z"
+      },
+      "createdAt": "2026-10-24T08:15:00.000Z",
+      "mentions": [
+        "alex"
+      ],
+      "tags": [
+        "docs",
+        "security"
+      ]
+    },
+    {
+      "id": "hdr_yesterday",
+      "type": "h1",
+      "text": "Oct 23 — Yesterday",
+      "createdAt": "2026-10-23T09:00:00.000Z",
+      "mentions": [],
+      "tags": []
+    },
+    {
+      "id": "tsk_carry_1",
+      "type": "task",
+      "text": "Investigate flaky WebSocket reconnect timeout on mobile Safari @minji @manager #slack #bug",
+      "taskStatus": "todo",
+      "agent": "haru-executor",
+      "model": "claude-sonnet-4",
+      "session": null,
+      "sourceMeta": {
+        "source": "slack",
+        "contextNotes": "Carried visibility from Oct 23 — happens when tab wakes from background > 5m."
+      },
+      "createdAt": "2026-10-23T15:20:00.000Z",
+      "mentions": [
+        "minji",
+        "manager"
+      ],
+      "tags": [
+        "slack",
+        "bug"
+      ]
+    },
+    {
+      "id": "tsk_carry_2",
+      "type": "task",
+      "text": "Refactor shared pagination hook to return total cursor count @alex #linear #tech-debt",
+      "taskStatus": "in_progress",
+      "agent": "kirocrew",
+      "model": "gemini-2.5-pro",
+      "session": {
+        "sessionId": "ses_610e9d",
+        "status": "needs_input",
+        "stepSummary": "Waiting on confirmation: keep legacy offset fallback?",
+        "reviewSummary": "Prepared cursor pagination adapter across 4 endpoints; confirm if v1 offset param stays deprecated.",
+        "startedAt": "2026-10-23T17:40:00.000Z",
+        "updatedAt": "2026-10-23T17:46:00.000Z"
+      },
+      "sourceMeta": {
+        "source": "linear",
+        "externalId": "ENG-412"
+      },
+      "createdAt": "2026-10-23T16:10:00.000Z",
+      "mentions": [
+        "alex"
+      ],
+      "tags": [
+        "linear",
+        "tech-debt"
+      ]
+    },
+    {
+      "id": "tsk_yesterday_done",
+      "type": "task",
+      "text": "Hotfix timezone formatting in weekly team digest @aziz2 #frontend",
+      "taskStatus": "done",
+      "agent": "haru-executor",
+      "model": "auto",
+      "session": null,
+      "createdAt": "2026-10-23T11:00:00.000Z",
+      "mentions": [
+        "aziz2"
+      ],
+      "tags": [
+        "frontend"
+      ]
+    },
+    {
+      "id": "blk_xkhe6imb",
+      "type": "paragraph",
+      "text": "",
+      "mentions": [],
+      "tags": [],
+      "createdAt": "2026-10-25T00:48:57.852Z"
+    },
+    {
+      "id": "blk_4btspgxj",
+      "type": "h1",
+      "text": "Oct 24",
+      "mentions": [],
+      "tags": [],
+      "createdAt": "2026-10-25T00:48:58.141Z"
+    },
+    {
+      "id": "tsk_n6441i3j",
+      "type": "task",
+      "text": "test @aziz ",
+      "mentions": [
+        "aziz"
+      ],
+      "tags": [],
+      "taskStatus": "todo",
+      "agent": "kirocrew",
+      "model": "auto",
+      "session": null,
+      "createdAt": "2026-10-25T00:49:05.326Z"
+    },
+    {
+      "id": "tsk_fr8fehwo",
+      "type": "task",
+      "text": "",
+      "mentions": [],
+      "tags": [],
+      "taskStatus": "todo",
+      "agent": "haru-executor",
+      "model": "auto",
+      "session": null,
+      "createdAt": "2026-10-25T00:49:31.999Z"
+    }
+  ],
+  "incomingQueue": [
+    {
+      "id": "inc_demo_1",
+      "externalId": "asana_120855901",
+      "source": "asana",
+      "title": "Add CSV export button to Team Workload report",
+      "requester": "manager",
+      "reviewers": [
+        "aziz2"
+      ],
+      "tags": [
+        "asana",
+        "reporting"
+      ],
+      "contextNotes": "Assigned to you in Asana Sprint Board · Due Monday. Needs UTF-8 BOM support for Korean/CJK names.",
+      "externalUrl": "https://app.asana.com/0/sprint/120855901",
+      "receivedAt": "2026-10-24T15:45:00.000Z"
+    }
+  ],
+  "connectors": [
+    {
+      "id": "conn_asana_mcp",
+      "name": "Asana (MCP / Webhook)",
+      "source": "asana",
+      "type": "mcp",
+      "enabled": true,
+      "arrivalMode": "auto_append",
+      "mcpServer": "asana",
+      "mcpTool": "asana_search_tasks",
+      "configHint": "Generic MCP adapter — works via Universal Intake API immediately, or attach any Asana MCP server in app.json when ready.",
+      "lastSyncedAt": "2026-10-24T15:45:00.000Z"
+    },
+    {
+      "id": "conn_slack",
+      "name": "Slack Mentions & Saved",
+      "source": "slack",
+      "type": "webhook",
+      "enabled": true,
+      "arrivalMode": "inbox",
+      "mcpServer": "slack",
+      "mcpTool": "slack_get_mentions",
+      "configHint": "Send Slack workflow webhooks or slash commands to POST /api/apps/haru/intake.",
+      "lastSyncedAt": "2026-10-24T14:20:00.000Z"
+    },
+    {
+      "id": "conn_linear_gh",
+      "name": "Linear / GitHub / Custom Input",
+      "source": "linear",
+      "type": "generic",
+      "enabled": true,
+      "arrivalMode": "inbox",
+      "mcpServer": "",
+      "mcpTool": "",
+      "configHint": "Accepts any JSON or plain-text task payload from Linear, GitHub, Jira, CLI scripts, or Kiro Cron agents.",
+      "lastSyncedAt": null
+    }
+  ],
+  "teamMembers": [
+    {
+      "handle": "aziz2",
+      "displayName": "aziz2 Kim",
+      "role": "Design & Product Lead",
+      "color": "#EC4899"
+    },
+    {
+      "handle": "manager",
+      "displayName": "Engineering Manager",
+      "role": "Manager",
+      "color": "#F59E0B"
+    },
+    {
+      "handle": "minji",
+      "displayName": "Minji Park",
+      "role": "Staff Engineer",
+      "color": "#8B5CF6"
+    },
+    {
+      "handle": "alex",
+      "displayName": "Alex Rivera",
+      "role": "Platform Engineer",
+      "color": "#06B6D4"
+    },
+    {
+      "handle": "backend-team",
+      "displayName": "Backend Team",
+      "role": "Review Group",
+      "color": "#10B981"
+    },
+    {
+      "handle": "frontend",
+      "displayName": "Frontend Guild",
+      "role": "Review Group",
+      "color": "#3B82F6"
+    },
+    {
+      "handle": "aziz",
+      "displayName": "@aziz",
+      "role": "Teammate",
+      "color": "#60A5FA"
+    }
+  ]
+}

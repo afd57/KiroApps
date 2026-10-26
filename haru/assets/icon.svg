@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <rect width="256" height="256" rx="56" fill="url(#haru_bg)"/>
+  <circle cx="128" cy="116" r="44" fill="url(#haru_sun)"/>
+  <path d="M56 176C80 162 104 156 128 156C152 156 176 162 200 176" stroke="#FFF7ED" stroke-width="14" stroke-linecap="round"/>
+  <path d="M78 200H178" stroke="#FDBA74" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+  <defs>
+    <linearGradient id="haru_bg" x1="24" y1="16" x2="232" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="0.55" stop-color="#312E81"/>
+      <stop offset="1" stop-color="#7C2D12"/>
+    </linearGradient>
+    <linearGradient id="haru_sun" x1="96" y1="76" x2="160" y2="156" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FB923C"/>
+    </linearGradient>
+  </defs>
+</svg>

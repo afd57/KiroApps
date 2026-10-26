@@ -1,0 +1,12 @@
+{
+  "name": "haru",
+  "version": "0.1.3",
+  "private": true,
+  "scripts": {
+    "dev": "node sync-to-kiro.mjs --watch",
+    "standalone": "node dev-start.mjs",
+    "build": "npm --prefix ui run build && node sync-to-kiro.mjs --sync-only",
+    "sync": "node sync-to-kiro.mjs --sync-only",
+    "start:backend": "node backend/server.mjs"
+  }
+}

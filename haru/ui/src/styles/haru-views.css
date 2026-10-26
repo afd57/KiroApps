@@ -1,0 +1,793 @@
+/* Radar View & Intake Styles — strictly scoped inside .haru-shell */
+
+.haru-radar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.haru-radar-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.haru-stat-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.15s ease;
+}
+
+.haru-stat-card.is-clickable {
+  cursor: pointer;
+}
+
+.haru-stat-card.is-clickable:hover {
+  border-color: var(--haru-border-strong);
+  background: var(--haru-hover);
+  transform: translateY(-1px);
+}
+
+.haru-stat-card.is-active {
+  border-color: var(--haru-accent);
+  box-shadow: 0 0 0 1px var(--haru-accent);
+  background: color-mix(in srgb, var(--haru-accent) 6%, var(--haru-card));
+}
+
+.haru-stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.haru-stat-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  color: var(--haru-text);
+}
+
+.haru-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--haru-text-strong);
+}
+
+.haru-stat-label {
+  font-size: 12px;
+  color: var(--haru-muted);
+}
+
+.haru-stat-card-completed {
+  min-width: 220px;
+}
+
+.haru-stat-completed-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.haru-stat-completed-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.haru-stat-completed-list::-webkit-scrollbar-thumb {
+  background: var(--haru-border-strong);
+  border-radius: 4px;
+}
+
+.haru-stat-completed-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  font-size: 12px;
+  transition: background 0.12s ease;
+}
+
+.haru-stat-completed-item:hover {
+  background: var(--haru-hover);
+}
+
+.haru-stat-completed-title {
+  flex: 1;
+  min-width: 0;
+  text-decoration: line-through;
+  color: var(--haru-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.haru-stat-empty {
+  font-size: 11.5px;
+  color: var(--haru-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.haru-radar-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.haru-filter-pill {
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--haru-border);
+  background: var(--haru-card);
+  color: var(--haru-muted);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-filter-pill:hover {
+  color: var(--haru-text);
+  border-color: var(--haru-border-strong);
+}
+
+.haru-filter-pill.active {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.haru-radar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.haru-radar-item {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.haru-radar-item.is-running {
+  border-color: color-mix(in srgb, var(--haru-ok) 40%, var(--haru-border));
+  background: color-mix(in srgb, var(--haru-ok) 6%, var(--haru-card));
+}
+
+.haru-radar-item-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 240px;
+}
+
+.haru-radar-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.haru-radar-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--haru-text-strong);
+}
+
+.haru-radar-item-title.checked {
+  text-decoration: line-through;
+  color: var(--haru-muted);
+}
+
+.haru-radar-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--haru-muted);
+}
+
+.haru-meta-chip {
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  font-family: var(--haru-font-mono);
+  font-size: 11px;
+}
+
+/* Modal & Toast */
+.haru-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.haru-modal {
+  width: 100%;
+  max-width: 520px;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border-strong);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+.haru-toast-stack {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1100;
+}
+
+.haru-toast {
+  background: var(--haru-elevated);
+  color: var(--haru-text-strong);
+  border: 1px solid var(--haru-border-strong);
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   Connectors View Styles
+   ========================================================================== */
+
+.haru-connectors-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.haru-connectors-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--haru-accent) 12%, var(--haru-card)), var(--haru-card));
+  border: 1px solid color-mix(in srgb, var(--haru-accent) 25%, var(--haru-border));
+  border-radius: 12px;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+
+.haru-connectors-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.haru-connectors-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--haru-text-strong);
+  margin: 0;
+}
+
+.haru-connectors-subtitle {
+  font-size: 12.5px;
+  color: var(--haru-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.haru-connectors-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--haru-ok);
+  background: color-mix(in srgb, var(--haru-ok) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--haru-ok) 30%, transparent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.haru-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--haru-ok);
+  box-shadow: 0 0 8px var(--haru-ok);
+  animation: haruPulse 2s infinite ease-in-out;
+}
+
+@keyframes haruPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.haru-connectors-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.haru-connectors-section-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--haru-muted);
+}
+
+.haru-preset-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.haru-preset-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--haru-text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-preset-pill:hover {
+  background: var(--haru-elevated);
+  border-color: var(--haru-border-strong);
+  transform: translateY(-1px);
+}
+
+.haru-preset-pill.active {
+  background: color-mix(in srgb, var(--haru-accent) 15%, var(--haru-card));
+  border-color: var(--haru-accent);
+  color: var(--haru-text-strong);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--haru-accent);
+}
+
+.haru-preset-icon {
+  font-size: 14px;
+}
+
+.haru-connector-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.haru-connector-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.haru-connector-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--haru-text-strong);
+}
+
+.haru-connector-textarea {
+  width: 100%;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--haru-text);
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.15s ease;
+}
+
+.haru-connector-textarea:focus {
+  outline: none;
+  border-color: var(--haru-accent);
+  box-shadow: 0 0 0 2px var(--haru-accent-subtle);
+}
+
+.haru-connector-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.haru-config-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.haru-config-label {
+  font-size: 11.5px;
+  color: var(--haru-muted);
+  font-weight: 500;
+}
+
+.haru-config-select,
+.haru-config-input {
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--haru-text);
+  font-size: 12.5px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.haru-config-select:focus,
+.haru-config-input:focus {
+  border-color: var(--haru-accent);
+}
+
+.haru-connector-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 4px;
+  flex-wrap: wrap;
+}
+
+.haru-connector-buttons-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.haru-btn-accent {
+  background: var(--haru-accent);
+  color: var(--haru-accent-fg);
+  border: 1px solid transparent;
+  font-weight: 600;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--haru-accent) 35%, transparent);
+}
+
+.haru-btn-accent:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.haru-btn-test {
+  background: color-mix(in srgb, #8b5cf6 16%, var(--haru-elevated));
+  border: 1px solid color-mix(in srgb, #8b5cf6 45%, var(--haru-border));
+  color: #c4b5fd;
+  font-weight: 600;
+}
+
+.haru-btn-test:hover:not(:disabled) {
+  background: color-mix(in srgb, #8b5cf6 26%, var(--haru-elevated));
+  border-color: #8b5cf6;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.haru-btn-link {
+  background: none;
+  border: none;
+  color: var(--haru-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: color 0.15s ease;
+}
+
+.haru-btn-link:hover {
+  color: var(--haru-text);
+  text-decoration: underline;
+}
+
+.haru-connector-status-bar {
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--haru-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.haru-inspector-panel {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.haru-inspector-header {
+  background: var(--haru-elevated);
+  border-bottom: 1px solid var(--haru-border);
+  padding: 6px 12px;
+}
+
+.haru-inspector-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.haru-inspector-tab {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--haru-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.12s ease;
+}
+
+.haru-inspector-tab.active {
+  background: var(--haru-card);
+  color: var(--haru-text-strong);
+  font-weight: 600;
+  border: 1px solid var(--haru-border);
+}
+
+.haru-inspector-body {
+  padding: 12px;
+}
+
+.haru-inspector-pre {
+  background: var(--haru-bg);
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: var(--haru-font-mono);
+  font-size: 11.5px;
+  color: var(--haru-text);
+  white-space: pre-wrap;
+  margin: 0;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.haru-inspector-textarea {
+  width: 100%;
+  background: var(--haru-bg);
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: var(--haru-font-mono);
+  font-size: 12px;
+  color: var(--haru-text);
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.haru-preview-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border-strong);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.haru-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--haru-border);
+}
+
+.haru-preview-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.haru-preview-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--haru-text-strong);
+  margin: 0;
+}
+
+.haru-preview-dest {
+  font-size: 12px;
+  color: var(--haru-accent);
+  font-family: var(--haru-font-mono);
+}
+
+.haru-preview-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.haru-btn-sm {
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11.5px;
+  color: var(--haru-text);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-btn-sm:hover {
+  background: var(--haru-hover);
+  border-color: var(--haru-border-strong);
+}
+
+.haru-parsed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.haru-parsed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--haru-elevated);
+  border: 1px solid var(--haru-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.haru-parsed-item:hover {
+  border-color: var(--haru-border-strong);
+  background: color-mix(in srgb, var(--haru-hover) 50%, var(--haru-elevated));
+}
+
+.haru-parsed-item.is-selected {
+  border-color: color-mix(in srgb, var(--haru-accent) 45%, var(--haru-border));
+  background: color-mix(in srgb, var(--haru-accent) 6%, var(--haru-elevated));
+}
+
+.haru-parsed-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.haru-parsed-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.haru-parsed-text {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--haru-text-strong);
+}
+
+.haru-parsed-subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-left: 6px;
+  border-left: 2px solid var(--haru-border);
+  margin-top: 2px;
+}
+
+.haru-parsed-subtask-item {
+  font-size: 12px;
+  color: var(--haru-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.haru-subtask-bullet {
+  font-family: var(--haru-font-mono);
+  font-size: 11px;
+  color: var(--haru-muted);
+}
+
+.haru-preview-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--haru-border);
+  flex-wrap: wrap;
+}
+
+.haru-btn-lg {
+  padding: 10px 20px;
+  font-size: 13.5px;
+  border-radius: 8px;
+}
+
+.haru-inserted-success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--haru-ok);
+}
+
+.haru-btn-view {
+  background: color-mix(in srgb, var(--haru-ok) 14%, var(--haru-elevated));
+  border: 1px solid var(--haru-ok);
+  color: var(--haru-ok);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-btn-view:hover {
+  background: var(--haru-ok);
+  color: #ffffff;
+}
+
