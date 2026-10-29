@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { HaruBlock, KiroAgentOption, KiroModelOption } from '../types/haru';
+import { SearchableSelect, SearchOption } from './SearchableSelect';
 
 interface TaskControlBarProps {
   block: HaruBlock;
@@ -31,43 +32,47 @@ export const TaskControlBar: React.FC<TaskControlBarProps> = ({
   const isRunning = session.status === 'running';
   const hasSession = Boolean(session.slotKey) || isRunning || session.status === 'completed' || session.status === 'review_ready';
 
+  const agentOptions: SearchOption[] = useMemo(() => {
+    return agents.map((a) => ({
+      id: a.id,
+      label: a.id === 'default' ? 'default' : a.name.replace(/\s*\(.*?\)/, ''),
+      subLabel: a.description || a.id,
+      icon: '🤖',
+    }));
+  }, [agents]);
+
+  const modelOptions: SearchOption[] = useMemo(() => {
+    return models.map((m) => ({
+      id: m.id,
+      label: m.id === 'auto' ? 'Auto' : m.label.replace(/\s*\(.*?\)/, ''),
+      subLabel: m.provider || m.id,
+      icon: '⚡',
+    }));
+  }, [models]);
+
   return (
     <div className="haru-task-controls" onClick={(e) => e.stopPropagation()}>
-      {/* Agent Selector */}
-      <select
-        className="haru-select"
+      {/* Searchable Agent Selector */}
+      <SearchableSelect
         value={session.agent || agents[0]?.id || 'default'}
-        onChange={(e) => onChangeAgent(block.id, e.target.value)}
+        options={agentOptions}
+        onChange={(agentId) => onChangeAgent(block.id, agentId)}
+        searchPlaceholder="Search agents..."
         title="Select KiroCrew Agent"
-        aria-label="Select KiroCrew Agent"
-      >
-        {agents.map((a) => {
-          const shortName = a.id === 'default' ? 'default' : a.name.replace(/\s*\(.*?\)/, '');
-          return (
-            <option key={a.id} value={a.id} title={`${a.name}: ${a.description || ''}`}>
-              Agent: {shortName}
-            </option>
-          );
-        })}
-      </select>
+        ariaLabel="Select KiroCrew Agent"
+        variant="default"
+      />
 
-      {/* Model Selector */}
-      <select
-        className="haru-select"
+      {/* Searchable Model Selector */}
+      <SearchableSelect
         value={session.model || models[0]?.id || 'auto'}
-        onChange={(e) => onChangeModel(block.id, e.target.value)}
-        title="Select KiroCrew Model"
-        aria-label="Select KiroCrew Model"
-      >
-        {models.map((m) => {
-          const shortLabel = m.id === 'auto' ? 'Auto' : m.label.replace(/\s*\(.*?\)/, '');
-          return (
-            <option key={m.id} value={m.id} title={`${m.label} (${m.provider || ''})`}>
-              Model: {shortLabel}
-            </option>
-          );
-        })}
-      </select>
+        options={modelOptions}
+        onChange={(modelId) => onChangeModel(block.id, modelId)}
+        searchPlaceholder="Search models..."
+        title="Select AI Model"
+        ariaLabel="Select KiroCrew Model"
+        variant="default"
+      />
 
       {/* Running / Completed Status Badge */}
       {isRunning && (

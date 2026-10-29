@@ -2,7 +2,8 @@
 
 A clean, simple markdown notes & task workspace for KiroCrew.
 
-- **Workspace**: Write `# Sections`, notes, and `[] tasks`. Every task row lets you pick any KiroCrew **Agent** and **Model** (`Auto`, `Qwen3 Coder Next`, `MiniMax M2.5`, `MiniMax M2.1`, `DeepSeek 3.2`, `GLM-5`, `Claude Sonnet 4.5`, `Claude Haiku 4.5`, etc.) and click **▶ Run** to submit the task directly as a new KiroCrew session and navigate to it.
+- **Workspace**: Write `# Sections`, notes, and `[] tasks`. Every task row lets you pick any KiroCrew **Agent** and **Model** (`Auto`, `Qwen3 Coder Next`, `MiniMax M2.5`, `MiniMax M2.1`, `DeepSeek 3.2`, `GLM-5`, `Claude Sonnet 4.5`, `Claude Haiku 4.5`, etc.) and click **▶ Run** to submit the task directly as a new KiroCrew session and navigate to it. Features 4 switchable views: **Split View**, **Task Runner**, **Markdown**, and **🌱 Garden**.
+- **🌱 Garden (Cute Focus View)**: Renders tasks as cute animated **Mochi Buds** ordered strictly by the sequence you added them. Includes **Garden Quest** mechanics: the first unfinished task acts as the 🚩 **Leader**, a Pomodoro-style **⏱ Tend focus timer** that visually sprouts your bud as time passes, **☀ Sunshine rewards**, a daily goal ring with rain-day streaks, and unlocked **🐾 cute open-source companions** with a Pikmin-like squad trail.
 - **Radar**: View and manage all **incomplete and unfinished tasks**, running KiroCrew sessions, `@People` assignments, and `#Tags` in one place.
 
 ## Why the name "Haru"?

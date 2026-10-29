@@ -34,6 +34,8 @@ export interface HaruBlock {
   parentId?: string;
   subtaskIds?: string[];
   isSubtask?: boolean;
+  createdSeq?: number;
+  createdAt?: string;
 }
 
 export interface HaruDocument {

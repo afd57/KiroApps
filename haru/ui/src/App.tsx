@@ -24,10 +24,13 @@ import { InlineWorkspaceEditor } from './components/InlineWorkspaceEditor';
 import { SimpleInlineEditor } from './components/SimpleInlineEditor';
 import { RadarView } from './components/RadarView';
 import { ConnectorsView } from './components/ConnectorsView';
+import { FocusPill } from './components/garden/FocusPill';
+import { useGardenGame } from './components/garden/game/useGardenGame';
 import haruBaseCss from './styles/haru-base.css?inline';
 import haruViewsCss from './styles/haru-views.css?inline';
+import haruGardenCss from './styles/haru-garden.css?inline';
 
-const haruCss = `${haruBaseCss}\n${haruViewsCss}`;
+const haruCss = `${haruBaseCss}\n${haruViewsCss}\n${haruGardenCss}`;
 const API_BASE = '/apps/haru/api';
 
 const DEFAULT_AGENTS: KiroAgentOption[] = [
@@ -155,6 +158,14 @@ export function HaruApp() {
   const [agents, setAgents] = useState<KiroAgentOption[]>(DEFAULT_AGENTS);
   const [models, setModels] = useState<KiroModelOption[]>(DEFAULT_MODELS);
   const [toasts, setToasts] = useState<Array<{ id: string; message: string }>>([]);
+  const [initialBackendGarden, setInitialBackendGarden] = useState<any>(null);
+
+  const { game, gameActions, now, recentRewards } = useGardenGame(doc, {
+    api,
+    notify,
+    isHosted,
+    initialBackendGarden,
+  });
 
   const docRef = useRef<HaruDocument>(doc);
   docRef.current = doc;
@@ -258,6 +269,9 @@ export function HaruApp() {
 
       if (wsRes.status === 'fulfilled' && wsRes.value?.doc) {
         setDoc(wsRes.value.doc);
+        if (wsRes.value.garden) {
+          setInitialBackendGarden(wsRes.value.garden);
+        }
         saveLocalFallbackState({
           doc: wsRes.value.doc,
           connectors: wsRes.value.connectors || [],
@@ -723,6 +737,23 @@ export function HaruApp() {
         </nav>
 
         <div className="haru-topbar-actions">
+          {game.focus && (
+            <FocusPill
+              focus={game.focus}
+              task={doc.blocks.find((b) => b.id === game.focus?.taskId) || null}
+              now={now}
+              onClick={() => {
+                setActiveTab('workspace');
+                try {
+                  localStorage.setItem('haru.viewMode.v1', 'garden');
+                  window.dispatchEvent(new Event('storage'));
+                } catch {
+                  // ignore
+                }
+              }}
+            />
+          )}
+
           {activeTab === 'workspace' && (
             <div className="haru-editor-mode-toggle" title="Switch editor view">
               <button
@@ -771,6 +802,10 @@ export function HaruApp() {
               doc={doc}
               agents={agents}
               models={models}
+              game={game}
+              gameActions={gameActions}
+              now={now}
+              recentRewards={recentRewards}
               onChangeRawMarkdown={handleChangeRawMarkdown}
               onToggleTask={handleToggleTask}
               onChangeAgent={handleChangeAgent}

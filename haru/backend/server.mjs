@@ -280,6 +280,9 @@ const server = http.createServer(async (req, res) => {
       if (Array.isArray(body.intakeQueue)) {
         store.intakeQueue = body.intakeQueue;
       }
+      if (body.garden && typeof body.garden === 'object') {
+        store.garden = body.garden;
+      }
 
       const saved = await saveStore(store);
       return sendJson(res, 200, saved);

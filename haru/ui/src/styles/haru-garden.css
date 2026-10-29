@@ -1,0 +1,2212 @@
+/* Scoped styling strictly for Haru Garden View & Game mechanics */
+.haru-shell .haru-garden {
+  --garden-bg: color-mix(in srgb, var(--haru-bg) 92%, #ffe9f1);
+  --garden-card: color-mix(in srgb, var(--haru-card) 90%, #fff6ea);
+  --garden-ink: var(--haru-text-strong);
+  --garden-muted: var(--haru-muted);
+  --garden-radius: 20px;
+  --garden-font: 'Nunito', 'Quicksand', 'Varela Round', var(--haru-font-sans);
+  --garden-shadow: 0 6px 18px -8px rgba(255, 140, 170, 0.28);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 20px 80px;
+  font-family: var(--garden-font);
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* Garden Header */
+.haru-garden-header {
+  position: sticky;
+  top: 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 6px 0 10px;
+  background: color-mix(in srgb, var(--haru-bg, #0f1117) 88%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.haru-garden-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.haru-garden-title-text {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--haru-text-strong);
+}
+
+.haru-garden-subtitle {
+  font-size: 12px;
+  color: var(--haru-muted);
+}
+
+.haru-garden-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.haru-garden-counts-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.haru-count-badge {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  color: var(--haru-text);
+}
+
+.haru-count-badge.sprouting {
+  background: color-mix(in srgb, #4D9E56 12%, transparent);
+  border-color: color-mix(in srgb, #4D9E56 30%, transparent);
+}
+
+.haru-count-badge.running {
+  background: color-mix(in srgb, var(--haru-ok) 18%, transparent);
+  border-color: color-mix(in srgb, var(--haru-ok) 35%, transparent);
+}
+
+.haru-count-badge.bloomed {
+  background: color-mix(in srgb, #FF9EBB 18%, transparent);
+  border-color: color-mix(in srgb, #FF9EBB 35%, transparent);
+}
+
+.haru-garden-pill-btn {
+  padding: 4px 10px;
+  font-size: 11.5px;
+  border-radius: 999px;
+  border: 1px solid var(--haru-border);
+  background: var(--haru-card);
+  color: var(--haru-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-garden-pill-btn:hover {
+  color: var(--haru-text-strong);
+  background: var(--haru-hover);
+}
+
+.haru-garden-pill-btn.active {
+  background: color-mix(in srgb, #FF9EBB 25%, transparent);
+  color: var(--haru-text-strong);
+  border-color: color-mix(in srgb, #FF9EBB 50%, transparent);
+}
+
+/* Vine Progress Bar */
+.haru-garden-vine-bar {
+  height: 6px;
+  width: 100%;
+  background: color-mix(in srgb, var(--haru-border) 60%, transparent);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.haru-garden-vine-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6BD674, #FF9EBB);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+/* All Done celebration banner */
+.haru-garden-all-done-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: color-mix(in srgb, #FF9EBB 18%, var(--haru-card));
+  border: 1.5px dashed #FF9EBB;
+  border-radius: 12px;
+  color: var(--haru-text-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Main Parade Grid */
+.haru-garden-parade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 16px;
+  align-items: start;
+  background-image: radial-gradient(color-mix(in srgb, var(--haru-border) 45%, transparent) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+  padding: 10px 4px 30px;
+}
+
+/* Individual Bud Card */
+.haru-garden-card {
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--haru-card) 90%, var(--bud-tint, transparent));
+  border: 1.5px solid color-mix(in srgb, var(--bud-stroke, var(--haru-border)) 28%, var(--haru-border));
+  border-radius: var(--garden-radius);
+  padding: 12px;
+  gap: 8px;
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+}
+
+.haru-garden-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--garden-shadow);
+}
+
+.haru-garden-card.is-expanded {
+  grid-column: span 2;
+}
+
+.haru-garden-card.is-bloomed {
+  opacity: 0.88;
+}
+
+.haru-garden-card.is-leader {
+  border: 2px solid #FF809B;
+  box-shadow: 0 0 16px -2px rgba(255, 128, 155, 0.45);
+}
+
+.haru-garden-card.is-calm {
+  transform: scale(0.96);
+  opacity: 0.94;
+}
+
+/* Top bar inside card */
+.haru-garden-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.haru-garden-order-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--haru-muted);
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.haru-garden-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.haru-garden-leader-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: #FF5252;
+  color: white;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.haru-garden-status-pill {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.haru-garden-status-pill.running {
+  background: color-mix(in srgb, var(--haru-ok) 25%, transparent);
+  color: var(--haru-ok);
+}
+
+.haru-garden-status-pill.review {
+  background: color-mix(in srgb, #FFE066 30%, transparent);
+  color: #B58400;
+}
+
+.haru-garden-status-pill.failed {
+  background: color-mix(in srgb, var(--haru-danger) 20%, transparent);
+  color: var(--haru-danger);
+}
+
+.haru-garden-icon-btn,
+.haru-garden-expand-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  font-size: 13px;
+  color: var(--haru-muted);
+  border-radius: 4px;
+}
+
+.haru-garden-icon-btn:hover,
+.haru-garden-expand-btn:hover,
+.haru-garden-expand-btn.active {
+  color: var(--haru-text-strong);
+  background: var(--haru-hover);
+}
+
+/* Bud Character Button in Card */
+.haru-garden-bud-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4px 0 2px;
+}
+
+.haru-garden-bud-trigger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: none;
+}
+
+.haru-garden-soil {
+  display: block;
+  width: 52px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  margin-top: -6px;
+}
+
+.haru-garden-check-pill {
+  position: absolute;
+  bottom: 0;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--haru-border);
+  background: var(--haru-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.haru-garden-check-pill.checked {
+  background: #FF9EBB;
+  border-color: #E0698B;
+  color: white;
+}
+
+/* Card Body & Title */
+.haru-garden-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.haru-garden-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--haru-text-strong);
+  cursor: pointer;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.haru-garden-title.is-checked-text {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+.haru-garden-title-input {
+  width: 100%;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--haru-accent);
+  background: var(--haru-card);
+  color: var(--haru-text);
+  outline: none;
+}
+
+.haru-garden-chips {
+  display: flex;
+  gap: 4px;
+}
+
+.haru-garden-section-chip {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--haru-muted);
+}
+
+/* Subtasks Baby Buds Row */
+.haru-garden-baby-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed color-mix(in srgb, var(--haru-border) 60%, transparent);
+}
+
+.haru-garden-baby-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.haru-garden-baby-more {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--haru-muted);
+}
+
+/* Card Drawer */
+.haru-garden-card-drawer {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--haru-border);
+}
+
+/* Seed Pot (Add Task) Card */
+.haru-garden-seed-pot-card {
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, #6BD674 8%, var(--haru-card));
+  border: 1.5px dashed color-mix(in srgb, #6BD674 50%, var(--haru-border));
+  border-radius: var(--garden-radius);
+  padding: 14px;
+  gap: 10px;
+}
+
+.haru-seed-pot-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.haru-seed-pot-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--haru-text-strong);
+}
+
+.haru-seed-pot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.haru-seed-pot-input {
+  padding: 7px 10px;
+  font-size: 12.5px;
+  border-radius: 8px;
+  border: 1px solid var(--haru-border);
+  background: var(--haru-card);
+  color: var(--haru-text);
+  outline: none;
+}
+
+.haru-seed-pot-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.haru-seed-pot-section-select {
+  padding: 4px 6px;
+  font-size: 11px;
+  border-radius: 6px;
+  border: 1px solid var(--haru-border);
+  background: var(--haru-card);
+  color: var(--haru-text);
+}
+
+.haru-seed-pot-plant-btn {
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #6BD674, #4D9E56);
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.haru-seed-pot-plant-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Animations */
+.haru-garden-card.is-new {
+  animation: bud-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bud-pop {
+  0% {
+    transform: translateY(20px) scale(0.3);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(-4px) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.mochi-bud-wrapper {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+.mochi-bud-wrapper:hover {
+  transform: scale(1.08) translateY(-3px);
+}
+
+.mochi-bud-wrapper.is-squished {
+  transform: scale(1.18, 0.78) translateY(8px) !important;
+  transition: transform 0.08s ease-out;
+}
+
+/* Floating poke hearts */
+.mochi-floating-heart {
+  position: absolute;
+  pointer-events: none;
+  font-size: 15px;
+  animation: float-up-heart 0.85s ease-out forwards;
+  z-index: 10;
+}
+
+@keyframes float-up-heart {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6) rotate(-10deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -70%) scale(1.2) rotate(8deg);
+  }
+  100% {
+    transform: translate(-50%, -130px) scale(0.9) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+/* Companion petting */
+.haru-companion-sprite {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+.haru-companion-sprite:hover {
+  transform: scale(1.14) rotate(4deg);
+}
+
+.haru-companion-sprite.is-petted {
+  transform: scale(1.25) translateY(-5px) rotate(-6deg);
+  filter: drop-shadow(0 4px 12px rgba(255, 180, 200, 0.6));
+}
+
+.companion-love-heart {
+  position: absolute;
+  top: -10px;
+  right: -6px;
+  font-size: 14px;
+  pointer-events: none;
+  animation: companion-sparkle 0.9s ease-out forwards;
+}
+
+@keyframes companion-sparkle {
+  0% {
+    transform: scale(0.4) translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.3) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-24px);
+  }
+}
+
+.mochi-bud-wrapper.status-idle:not(.is-calm) {
+  animation: bud-breathe 3.4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.37s);
+}
+
+@keyframes bud-breathe {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.02, 0.98);
+  }
+}
+
+.mochi-bud-wrapper.status-running {
+  animation: bud-walk 0.52s ease-in-out infinite alternate;
+}
+
+@keyframes bud-walk {
+  0% {
+    transform: translateY(0) rotate(-2.5deg);
+  }
+  100% {
+    transform: translateY(-6px) rotate(2.5deg);
+  }
+}
+
+.mochi-bud-wrapper.status-done {
+  animation: bud-sway 3.8s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i, 0) * -0.4s);
+}
+
+@keyframes bud-sway {
+  0% {
+    transform: rotate(-1.5deg);
+  }
+  100% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.mochi-bud-wrapper.celebrating {
+  animation: bud-celebrate 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bud-celebrate {
+  0% {
+    transform: scale(0.9);
+  }
+  40% {
+    transform: translateY(-16px) scale(1.15);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Petal Burst */
+.haru-garden-petal-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.haru-garden-petal {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #FF9EBB;
+  border-radius: 50% 0 50% 50%;
+  animation: bud-petal-scatter 0.75s ease-out forwards;
+}
+
+@keyframes bud-petal-scatter {
+  0% {
+    transform: rotate(calc(var(--p) * 51deg)) translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(calc(var(--p) * 51deg)) translate(38px, -20px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* Game HUD */
+.haru-game-hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.haru-hud-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.haru-sun-icon {
+  color: #FFA500;
+}
+
+.haru-level-tag {
+  font-size: 10px;
+  color: var(--haru-muted);
+}
+
+.haru-level-bar {
+  width: 32px;
+  height: 4px;
+  background: var(--haru-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.haru-level-bar-fill {
+  height: 100%;
+  background: #FFA500;
+  border-radius: 999px;
+}
+
+.haru-goal-ring {
+  transform: rotate(-90deg);
+}
+
+.haru-goal-ring-bg {
+  fill: none;
+  stroke: var(--haru-border);
+  stroke-width: 3.8;
+}
+
+.haru-goal-ring-fill {
+  fill: none;
+  stroke: #6BD674;
+  stroke-width: 3.8;
+  stroke-linecap: round;
+}
+
+.haru-streak-badge {
+  font-size: 10.5px;
+  color: #FF7E5F;
+}
+
+.haru-hud-tend-btn {
+  background: linear-gradient(135deg, #FF809B, #FF9EBB);
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.haru-hud-settings-wrap {
+  position: relative;
+}
+
+.haru-hud-icon-btn {
+  background: transparent;
+  border: 1px solid var(--haru-border);
+  color: var(--haru-muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haru-hud-settings-popover {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 12px;
+  padding: 12px;
+  width: 190px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+.haru-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--haru-text);
+}
+
+.haru-toggle-pill {
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 999px;
+  border: 1px solid var(--haru-border);
+  cursor: pointer;
+  background: var(--haru-elevated);
+  color: var(--haru-muted);
+}
+
+.haru-toggle-pill.active {
+  background: #6BD674;
+  color: white;
+  border-color: #4D9E56;
+}
+
+/* Squad Trail */
+.haru-squad-trail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 999px;
+  padding: 2px 8px 2px 4px;
+}
+
+.haru-squad-leader {
+  cursor: pointer;
+}
+
+.haru-squad-followers {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.haru-squad-overflow {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--haru-muted);
+  padding: 0 4px;
+}
+
+/* Focus Overlay */
+.haru-focus-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 17, 23, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.haru-focus-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 24px;
+  padding: 32px 28px;
+  gap: 16px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.haru-focus-phase-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--haru-text-strong);
+}
+
+.haru-focus-ring-wrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.haru-focus-svg-ring {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.haru-focus-ring-bg {
+  stroke: var(--haru-elevated);
+}
+
+.haru-focus-ring-fill {
+  stroke: #6BD674;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.35s ease;
+}
+
+.haru-focus-center-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haru-focus-time-text {
+  font-size: 34px;
+  font-weight: 900;
+  font-family: var(--haru-font-mono);
+  color: var(--haru-text-strong);
+}
+
+.haru-focus-task-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--haru-muted);
+  text-align: center;
+  max-width: 320px;
+}
+
+.haru-focus-companion-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--haru-elevated);
+  padding: 8px 14px;
+  border-radius: 14px;
+  width: 100%;
+}
+
+.haru-focus-speech-bubble {
+  font-size: 12px;
+  color: var(--haru-text);
+  font-style: italic;
+}
+
+.haru-focus-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.haru-focus-btn {
+  padding: 7px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--haru-border);
+  background: var(--haru-elevated);
+  color: var(--haru-text);
+  cursor: pointer;
+}
+
+.haru-focus-btn.primary {
+  background: var(--haru-accent);
+  color: white;
+  border-color: transparent;
+}
+
+.haru-focus-btn.success {
+  background: #6BD674;
+  color: white;
+  border-color: transparent;
+}
+
+.haru-focus-btn.danger {
+  color: var(--haru-danger);
+}
+
+/* Floating Focus Pill for other tabs */
+.haru-focus-floating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #6BD674, #4D9E56);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: none;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Reward pop chips */
+.haru-reward-pop-container {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  z-index: 300;
+}
+
+.haru-reward-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #FFA500;
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(255, 165, 0, 0.4);
+  animation: reward-float 1.8s ease-out forwards;
+}
+
+@keyframes reward-float {
+  0% {
+    transform: translateY(12px) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(0) scale(1.1);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-8px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-24px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Companion Picker Modal */
+.haru-companion-picker-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 20px;
+}
+
+.haru-companion-picker-card {
+  background: var(--haru-card);
+  border: 1px solid var(--haru-border);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.haru-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.haru-picker-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--haru-text-strong);
+}
+
+.haru-picker-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: var(--haru-muted);
+  cursor: pointer;
+}
+
+.haru-picker-subtitle {
+  font-size: 12px;
+  color: var(--haru-muted);
+  margin: 0;
+}
+
+.haru-companion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.haru-companion-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--haru-elevated);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 10px 6px;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-companion-card:hover:not(.is-locked) {
+  border-color: var(--haru-accent);
+}
+
+.haru-companion-card.is-selected {
+  border-color: #6BD674;
+  background: color-mix(in srgb, #6BD674 15%, var(--haru-elevated));
+}
+
+.haru-companion-card.is-locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.haru-companion-avatar-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+.haru-companion-avatar.silhouette {
+  filter: grayscale(1) brightness(0.4);
+}
+
+.haru-companion-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.haru-active-badge {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6BD674;
+  color: white;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 999px;
+}
+
+.haru-companion-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--haru-text);
+  text-align: center;
+}
+
+.haru-companion-requirement {
+  font-size: 9.5px;
+  color: var(--haru-muted);
+}
+
+.haru-picker-footer {
+  text-align: center;
+  padding-top: 6px;
+}
+
+.haru-art-credits {
+  font-size: 10px;
+  color: var(--haru-muted);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .mochi-bud-wrapper,
+  .haru-garden-card.is-new,
+  .haru-reward-chip,
+  .haru-garden-petal {
+    animation: none !important;
+  }
+  .haru-garden-petal-burst {
+    display: none !important;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 520px) {
+  .haru-garden-parade {
+    grid-template-columns: 1fr;
+  }
+  .haru-companion-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* ==========================================================================
+   Haru Garden v2: Lively Terrarium, Wardrobe Studio & Dynamic Outfits
+   ========================================================================== */
+
+/* Terrarium Atmosphere Themes */
+.haru-garden.atmosphere-sunny {
+  background: radial-gradient(circle at 50% 0%, rgba(255, 235, 180, 0.12) 0%, transparent 60%);
+}
+
+.haru-garden.atmosphere-sakura {
+  background: radial-gradient(circle at 50% 0%, rgba(255, 182, 193, 0.16) 0%, transparent 65%);
+}
+
+.haru-garden.atmosphere-night {
+  background: radial-gradient(circle at 50% 0%, rgba(138, 120, 255, 0.18) 0%, transparent 70%);
+}
+
+/* Atmospheric Ambient Overlay & Floating Particles */
+.haru-garden-atmosphere-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 260px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.haru-atmosphere-particles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.haru-atmosphere-particles.sakura .petal {
+  position: absolute;
+  font-size: 14px;
+  opacity: 0.8;
+  animation: sakura-fall 8s linear infinite;
+}
+
+.haru-atmosphere-particles.sakura .p1 { left: 8%; animation-delay: 0s; animation-duration: 9s; }
+.haru-atmosphere-particles.sakura .p2 { left: 24%; animation-delay: 2.5s; animation-duration: 7.5s; }
+.haru-atmosphere-particles.sakura .p3 { left: 45%; animation-delay: 1.2s; animation-duration: 10s; }
+.haru-atmosphere-particles.sakura .p4 { left: 68%; animation-delay: 4s; animation-duration: 8.5s; }
+.haru-atmosphere-particles.sakura .p5 { left: 85%; animation-delay: 0.8s; animation-duration: 9.5s; }
+.haru-atmosphere-particles.sakura .p6 { left: 93%; animation-delay: 3.2s; animation-duration: 7s; }
+
+@keyframes sakura-fall {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(280px) translateX(60px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.haru-atmosphere-particles.night .firefly {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c3e88d;
+  box-shadow: 0 0 10px #c3e88d, 0 0 20px #80cbc4;
+  animation: firefly-drift 6s ease-in-out infinite alternate;
+}
+
+.haru-atmosphere-particles.night .f1 { top: 15%; left: 12%; animation-delay: 0s; }
+.haru-atmosphere-particles.night .f2 { top: 35%; left: 38%; animation-delay: 1.5s; }
+.haru-atmosphere-particles.night .f3 { top: 60%; left: 55%; animation-delay: 3s; }
+.haru-atmosphere-particles.night .f4 { top: 25%; left: 78%; animation-delay: 0.8s; }
+.haru-atmosphere-particles.night .f5 { top: 75%; left: 20%; animation-delay: 2.2s; }
+.haru-atmosphere-particles.night .f6 { top: 45%; left: 90%; animation-delay: 4.1s; }
+
+@keyframes firefly-drift {
+  0% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(15px, -20px) scale(1.3);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-10px, 15px) scale(0.7);
+    opacity: 0.3;
+  }
+}
+
+.haru-atmosphere-particles.sunny .sunmote {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.7);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.9);
+  animation: sunmote-float 7s ease-in-out infinite alternate;
+}
+
+.haru-atmosphere-particles.sunny .s1 { top: 20%; left: 18%; animation-delay: 0s; }
+.haru-atmosphere-particles.sunny .s2 { top: 40%; left: 45%; animation-delay: 2s; }
+.haru-atmosphere-particles.sunny .s3 { top: 65%; left: 70%; animation-delay: 1s; }
+.haru-atmosphere-particles.sunny .s4 { top: 30%; left: 88%; animation-delay: 3.5s; }
+
+@keyframes sunmote-float {
+  0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
+  50% { transform: translateY(-30px) scale(1.2); opacity: 0.8; }
+  100% { transform: translateY(-10px) scale(0.9); opacity: 0.3; }
+}
+
+/* Priority Badges in Card Header */
+.haru-priority-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background: var(--haru-elevated, #2a2e39);
+  color: var(--haru-text-muted, #94a3b8);
+}
+
+.haru-priority-pill:hover {
+  transform: scale(1.05);
+}
+
+.haru-priority-pill.priority-urgent {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(249, 115, 22, 0.22));
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.45);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+  animation: urgent-pulse 2s ease-in-out infinite;
+}
+
+@keyframes urgent-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.2); }
+  50% { box-shadow: 0 0 14px rgba(239, 68, 68, 0.45); }
+}
+
+.haru-priority-pill.priority-high {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.haru-priority-pill.priority-normal {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.haru-priority-pill.priority-low {
+  background: rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+/* Compact Card Footer (Agent / Model / Run) */
+.haru-garden-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--haru-border, rgba(255, 255, 255, 0.08));
+}
+
+.haru-card-inline-selectors {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.haru-card-compact-select {
+  padding: 3px 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--haru-elevated, #242933);
+  color: var(--haru-text, #e2e8f0);
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.1));
+  outline: none;
+  cursor: pointer;
+  max-width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.haru-card-compact-select:hover {
+  border-color: var(--haru-accent, #6bd674);
+}
+
+.haru-card-compact-select:focus {
+  border-color: var(--haru-accent, #6bd674);
+  box-shadow: 0 0 0 2px rgba(107, 214, 116, 0.2);
+}
+
+.haru-card-run-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.haru-card-session-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 4px 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.18));
+  background: var(--haru-elevated, #242933);
+  color: var(--haru-accent, #6bd674);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.haru-card-session-btn:hover {
+  border-color: var(--haru-accent, #6bd674);
+  background: color-mix(in srgb, var(--haru-accent, #6bd674) 18%, transparent);
+  transform: translateY(-1px);
+}
+
+.haru-count-badge.running.clickable {
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid var(--haru-ok, #2fbf71);
+}
+
+.haru-count-badge.running.clickable:hover {
+  background: color-mix(in srgb, var(--haru-ok, #2fbf71) 32%, transparent);
+  transform: translateY(-1px);
+}
+
+.haru-card-run-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #6bd674, #3bb352);
+  color: #0b2e13;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(107, 214, 116, 0.3);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+.haru-card-run-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 10px rgba(107, 214, 116, 0.45);
+  filter: brightness(1.05);
+}
+
+.haru-card-run-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.haru-card-run-btn.running,
+.haru-card-run-btn.is-running {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+  animation: working-bob 1.2s ease-in-out infinite alternate;
+}
+
+.haru-running-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: inline-block;
+  animation: dot-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes dot-pulse {
+  0% { transform: scale(0.7); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes working-bob {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-2px); }
+}
+
+/* Sort Mode Pill Toggle in Garden Header */
+.haru-garden-pill-btn.sort-toggle {
+  font-weight: 700;
+}
+
+.haru-garden-pill-btn.sort-toggle.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.2));
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* Persistent Game HUD Controls */
+.haru-hud-off-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--haru-elevated, #242933);
+  border: 1px dashed var(--haru-border, rgba(255, 255, 255, 0.18));
+  color: var(--haru-text-muted, #94a3b8);
+}
+
+.haru-hud-off-toggle {
+  background: transparent;
+  border: none;
+  color: var(--haru-text-muted, #94a3b8);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.haru-hud-off-toggle:hover {
+  color: var(--haru-text, #ffffff);
+}
+
+.haru-hud-wardrobe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+  color: #f472b6;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.haru-hud-wardrobe-btn:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+}
+
+.haru-hud-atmo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.15));
+  background: var(--haru-elevated, #242933);
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.haru-hud-atmo-btn:hover {
+  transform: scale(1.1);
+}
+
+.haru-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: transparent;
+}
+
+/* Wardrobe Studio Modal */
+.haru-wardrobe-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 550;
+  padding: 18px;
+}
+
+.haru-wardrobe-modal-card {
+  background: var(--haru-card, #1e222d);
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.12));
+  border-radius: 20px;
+  padding: 22px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.haru-wardrobe-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.haru-wardrobe-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.haru-wardrobe-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--haru-text-strong, #ffffff);
+}
+
+.haru-wardrobe-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: var(--haru-muted, #94a3b8);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.haru-wardrobe-close-btn:hover {
+  color: var(--haru-text, #ffffff);
+}
+
+.haru-wardrobe-subtitle {
+  font-size: 12px;
+  color: var(--haru-muted, #94a3b8);
+  margin: 0;
+}
+
+/* Wardrobe Preview Stage */
+.haru-wardrobe-preview-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: radial-gradient(circle at 50% 60%, rgba(107, 214, 116, 0.12), transparent 70%),
+              var(--haru-elevated, #252a36);
+  border-radius: 16px;
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.08));
+}
+
+.haru-wardrobe-stage-shadow {
+  width: 70px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+.haru-wardrobe-preview-label {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--haru-text-strong, #ffffff);
+}
+
+.haru-wardrobe-preview-details {
+  font-size: 11px;
+  color: var(--haru-muted, #94a3b8);
+}
+
+/* Wardrobe Tab Switcher & AI Button */
+.haru-wardrobe-tabs-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.haru-wardrobe-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--haru-elevated, #252a36);
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.haru-wardrobe-tab {
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--haru-muted, #94a3b8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-wardrobe-tab.active {
+  background: var(--haru-card, #1e222d);
+  color: var(--haru-text-strong, #ffffff);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.haru-wardrobe-ai-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.haru-wardrobe-ai-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  filter: brightness(1.1);
+}
+
+/* Wardrobe Options Grid */
+.haru-wardrobe-target-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--haru-text, #e2e8f0);
+}
+
+.haru-wardrobe-select {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 8px;
+  background: var(--haru-elevated, #252a36);
+  color: var(--haru-text-strong, #ffffff);
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.15));
+}
+
+.haru-wardrobe-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.haru-wardrobe-option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 8px;
+  background: var(--haru-elevated, #252a36);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+
+.haru-wardrobe-option-card:hover {
+  border-color: var(--haru-accent, #6bd674);
+  transform: translateY(-2px);
+}
+
+.haru-wardrobe-option-card.selected {
+  border-color: #6bd674;
+  background: color-mix(in srgb, #6bd674 15%, var(--haru-elevated, #252a36));
+  box-shadow: 0 0 10px rgba(107, 214, 116, 0.25);
+}
+
+.haru-wardrobe-option-icon {
+  font-size: 20px;
+}
+
+.haru-wardrobe-option-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--haru-text-strong, #ffffff);
+}
+
+.haru-wardrobe-option-desc {
+  font-size: 9.5px;
+  color: var(--haru-muted, #94a3b8);
+  line-height: 1.2;
+}
+
+/* Interactive Lawn Terrace */
+.haru-garden-lawn-terrace {
+  margin-top: 24px;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.haru-lawn-soil-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(107, 214, 116, 0.35), transparent);
+}
+
+.haru-lawn-flowers-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.haru-lawn-flower-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.haru-lawn-flower-btn:hover {
+  transform: scale(1.35) translateY(-3px);
+}
+
+.haru-lawn-flower-btn:active {
+  transform: scale(0.9) translateY(2px);
+}
+
+.haru-lawn-cheer-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ec4899;
+  background: rgba(236, 72, 153, 0.15);
+  padding: 3px 8px;
+  border-radius: 999px;
+  animation: cheer-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cheer-pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Mochi Bud Animated Keyframes */
+.mochi-pose-waddle {
+  animation: mochi-waddle-anim 1.8s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes mochi-waddle-anim {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(-5deg) translateY(-2px); }
+  75% { transform: rotate(5deg) translateY(-2px); }
+}
+
+.mochi-pose-sit {
+  animation: mochi-sit-anim 3s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes mochi-sit-anim {
+  0%, 100% { transform: scaleY(0.95) scaleX(1.05); }
+  50% { transform: scaleY(0.92) scaleX(1.08); }
+}
+
+.mochi-pose-look {
+  animation: mochi-look-anim 4s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes mochi-look-anim {
+  0%, 35%, 100% { transform: translateX(0); }
+  45%, 55% { transform: translateX(-4px) rotate(-3deg); }
+  65%, 85% { transform: translateX(4px) rotate(3deg); }
+}
+
+.mochi-pose-daydream {
+  animation: mochi-daydream-anim 4.5s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes mochi-daydream-anim {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(4deg); }
+}
+
+.mochi-sprint-dash {
+  animation: mochi-sprint-anim 0.6s ease-in-out infinite alternate;
+  transform-origin: 50% 90%;
+}
+
+@keyframes mochi-sprint-anim {
+  0% { transform: translateY(0) rotate(-6deg) scaleX(1.04); }
+  100% { transform: translateY(-6px) rotate(6deg) scaleX(0.96); }
+}
+
+
+/* ==========================================================================
+   Mochi Bud Layered SVG Living Animations (Idle, Blink, Yawn, Eat, Sleep, Wave)
+   ========================================================================== */
+
+/* 1. Idle Gentle Breathing */
+.mochi-body-container {
+  transform-origin: 50% 85%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.anim-state-idle .mochi-body-container {
+  animation: mochi-breathe 3.4s ease-in-out infinite;
+}
+
+@keyframes mochi-breathe {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.025, 0.985) translateY(0.5px);
+  }
+}
+
+/* Ground shadow reacts to breathing */
+.mochi-ground-shadow {
+  transform-origin: 50% 89px;
+  animation: mochi-shadow-breathe 3.4s ease-in-out infinite;
+}
+
+@keyframes mochi-shadow-breathe {
+  0%, 100% {
+    transform: scale(1, 1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.05, 1.05);
+    opacity: 0.65;
+  }
+}
+
+/* Sprout Swaying */
+.mochi-sprout-sway {
+  transform-origin: 50px 33px;
+  animation: mochi-sprout-sway-anim 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes mochi-sprout-sway-anim {
+  0% {
+    transform: rotate(-6deg);
+  }
+  100% {
+    transform: rotate(6deg);
+  }
+}
+
+/* Orange Antennae Swaying */
+.mochi-antennae-group {
+  transform-origin: 50px 33px;
+  animation: mochi-antennae-sway-anim 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes mochi-antennae-sway-anim {
+  0% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Arms Breathing Rhythm */
+.mochi-arm-left {
+  transform-origin: 20px 58px;
+  animation: mochi-arm-left-bob 3.4s ease-in-out infinite;
+}
+
+@keyframes mochi-arm-left-bob {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-4deg);
+  }
+}
+
+.mochi-arm-right {
+  transform-origin: 80px 58px;
+  animation: mochi-arm-right-bob 3.4s ease-in-out infinite;
+}
+
+@keyframes mochi-arm-right-bob {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+/* 2. Yawning: mouth opens wide, eyes squint, gentle stretch */
+.anim-state-yawn .mochi-body-container {
+  animation: mochi-yawn-stretch 2.6s ease-in-out forwards;
+}
+
+@keyframes mochi-yawn-stretch {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  35%, 65% {
+    transform: scale(0.96, 1.06) translateY(-4px);
+  }
+}
+
+.mochi-mouth-yawn {
+  transform-origin: 50px 66px;
+  animation: mochi-yawn-mouth 2.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes mochi-yawn-mouth {
+  0%, 100% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  20%, 80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 3. Eating: food appears, chewing mouth, food eaten bite by bite */
+.mochi-mouth-chewing {
+  transform-origin: 50px 65px;
+  animation: mochi-chew-cycle 0.4s ease-in-out 6 alternate;
+}
+
+@keyframes mochi-chew-cycle {
+  0% {
+    transform: scaleY(0.4) scaleX(1.1);
+  }
+  100% {
+    transform: scaleY(1.3) scaleX(0.9);
+  }
+}
+
+.mochi-food-item {
+  transform-origin: 50px 68px;
+  animation: mochi-food-eaten 2.8s ease-out forwards;
+}
+
+@keyframes mochi-food-eaten {
+  0% {
+    transform: translate(50px, 80px) scale(0.2);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(50px, 68px) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(50px, 67px) scale(0.7);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(50px, 66px) scale(0.35);
+    opacity: 0.9;
+  }
+  95%, 100% {
+    transform: translate(50px, 65px) scale(0);
+    opacity: 0;
+  }
+}
+
+.crumb-1 {
+  animation: crumb-burst-1 0.6s ease-out infinite;
+}
+.crumb-2 {
+  animation: crumb-burst-2 0.7s ease-out infinite;
+}
+
+@keyframes crumb-burst-1 {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(-5px, 4px); opacity: 0; }
+}
+
+@keyframes crumb-burst-2 {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(6px, 3px); opacity: 0; }
+}
+
+/* 4. Sleeping: eyes closed, slow breathing, floating "Zzz" text */
+.anim-state-sleep .mochi-body-container {
+  animation: mochi-sleep-breathe 3.8s ease-in-out infinite;
+}
+
+@keyframes mochi-sleep-breathe {
+  0%, 100% {
+    transform: scale(1.01, 0.96) translateY(1.5px);
+  }
+  50% {
+    transform: scale(0.98, 1.01) translateY(-0.5px);
+  }
+}
+
+.mochi-zzz {
+  opacity: 0;
+  animation: mochi-zzz-float 3s ease-out infinite;
+  transform-origin: center;
+  user-select: none;
+}
+
+.zzz-1 { animation-delay: 0s; }
+.zzz-2 { animation-delay: 1s; }
+.zzz-3 { animation-delay: 2s; }
+
+@keyframes mochi-zzz-float {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(14px, -24px) scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* 5. Waving: arm pops out, hand waves back and forth */
+.mochi-arm-waving {
+  transform-origin: 74px 62px;
+  animation: mochi-hand-wave 0.55s ease-in-out infinite alternate;
+}
+
+@keyframes mochi-hand-wave {
+  0% {
+    transform: translate(74px, 52px) rotate(10deg);
+  }
+  100% {
+    transform: translate(74px, 52px) rotate(-32deg);
+  }
+}
+
+.wave-sparkle {
+  animation: wave-sparkle-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes wave-sparkle-pulse {
+  0% { transform: scale(0.8); opacity: 0.4; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Wardrobe Studio Interactive Testing Controls */
+.haru-wardrobe-anim-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.haru-wardrobe-anim-pill {
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.12));
+  background: var(--haru-elevated, #242933);
+  color: var(--haru-text, #e2e8f0);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.haru-wardrobe-anim-pill:hover {
+  border-color: var(--haru-accent, #6bd674);
+  transform: translateY(-1px);
+}
+
+.haru-wardrobe-anim-pill.is-active {
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.35);
+}
+
+.haru-wardrobe-color-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.haru-wardrobe-color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.haru-wardrobe-color-dot:hover {
+  transform: scale(1.25);
+}
+
+.haru-wardrobe-color-dot.is-active {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 8px rgba(0, 0, 0, 0.4);
+}

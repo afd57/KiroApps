@@ -818,8 +818,10 @@
   gap: 12px;
   width: 100%;
   height: 100%;
+  min-height: 0;
   padding: 16px 24px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .haru-simple-toolbar {
@@ -893,7 +895,7 @@
 /* Body / Panes */
 .haru-simple-workspace-body {
   flex: 1;
-  min-height: 520px;
+  min-height: 0;
   display: flex;
   gap: 16px;
 }
@@ -901,6 +903,12 @@
 .haru-simple-workspace-body.mode-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  min-height: 480px;
+}
+
+.haru-simple-workspace-body.mode-interactive,
+.haru-simple-workspace-body.mode-editor {
+  min-height: 480px;
 }
 
 .haru-simple-workspace-body.mode-interactive .haru-simple-preview-pane,
@@ -909,6 +917,36 @@
   max-width: 960px;
   margin: 0 auto;
   width: 100%;
+}
+
+.haru-simple-workspace-body.mode-garden {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.haru-simple-workspace-body.mode-garden::-webkit-scrollbar {
+  width: 8px;
+}
+
+.haru-simple-workspace-body.mode-garden::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.haru-simple-workspace-body.mode-garden::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--haru-border) 80%, transparent);
+  border-radius: 999px;
+}
+
+.haru-simple-workspace-body.mode-garden::-webkit-scrollbar-thumb:hover {
+  background: var(--haru-accent, #6bd674);
 }
 
 .haru-simple-editor-pane,
@@ -1364,3 +1402,225 @@
 
 
 
+
+
+/* =========================================================
+   Searchable Select Widget (SearchableAgentSelect)
+   ========================================================= */
+
+.haru-searchable-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.haru-searchable-select-wrap.is-open {
+  z-index: 80;
+}
+
+.haru-searchable-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.15));
+  color: var(--haru-text, #e2e8f0);
+  font-family: inherit;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.haru-searchable-trigger.default-box {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  background: var(--haru-elevated, #242933);
+  height: 28px;
+}
+
+.haru-searchable-trigger.compact-pill {
+  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--haru-elevated, #242933);
+  height: 24px;
+}
+
+.haru-searchable-trigger:hover,
+.haru-searchable-select-wrap.is-open .haru-searchable-trigger {
+  border-color: var(--haru-accent, #6bd674);
+  background: var(--haru-card, #1c1f26);
+}
+
+.haru-searchable-trigger-icon {
+  font-size: 11.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haru-searchable-trigger-label {
+  max-width: 105px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.haru-searchable-trigger-caret {
+  font-size: 9px;
+  opacity: 0.6;
+  transition: transform 0.15s ease;
+  margin-left: 1px;
+}
+
+.haru-searchable-select-wrap.is-open .haru-searchable-trigger-caret {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Card */
+.haru-searchable-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 210px;
+  max-width: 280px;
+  background: var(--haru-card, #1c1f26);
+  border: 1px solid var(--haru-border, rgba(255, 255, 255, 0.18));
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  z-index: 100;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: drop-pop 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes drop-pop {
+  0% { transform: translateY(-4px) scale(0.96); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.haru-searchable-input-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--haru-border, rgba(255, 255, 255, 0.12));
+  background: var(--haru-elevated, #242933);
+}
+
+.haru-searchable-search-icon {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.haru-searchable-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 11.5px;
+  color: var(--haru-text-strong, #ffffff);
+  font-family: inherit;
+}
+
+.haru-searchable-input::placeholder {
+  color: var(--haru-muted, #94a3b8);
+  font-size: 11px;
+}
+
+.haru-searchable-clear-btn {
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  color: var(--haru-muted, #94a3b8);
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.haru-searchable-clear-btn:hover {
+  color: var(--haru-text, #ffffff);
+}
+
+.haru-searchable-list {
+  max-height: 190px;
+  overflow-y: auto;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.haru-searchable-empty {
+  padding: 14px 10px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--haru-muted, #94a3b8);
+}
+
+.haru-searchable-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  user-select: none;
+}
+
+.haru-searchable-option:hover,
+.haru-searchable-option.is-highlighted {
+  background: var(--haru-hover, rgba(255, 255, 255, 0.08));
+}
+
+.haru-searchable-option.is-selected {
+  background: color-mix(in srgb, var(--haru-accent, #6bd674) 16%, transparent);
+}
+
+.haru-searchable-option-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haru-searchable-option-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.haru-searchable-option-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--haru-text-strong, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.haru-searchable-option-sub {
+  font-size: 10px;
+  color: var(--haru-muted, #94a3b8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.haru-searchable-option-check {
+  color: var(--haru-accent, #6bd674);
+  font-size: 11px;
+  font-weight: 800;
+  margin-left: 4px;
+}
+
+/* Card z-index boost when dropdown is open */
+.haru-garden-card:has(.haru-searchable-select-wrap.is-open) {
+  z-index: 60;
+}

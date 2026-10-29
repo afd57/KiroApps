@@ -44,6 +44,7 @@ export function parseMarkdownIntoBlocks(rawMarkdown, existingBlocks = []) {
   const existingTaskMap = new Map();
   const usedIds = new Set();
 
+  let maxExistingSeq = 0;
   for (const b of existingBlocks) {
     if (b.type === 'task') {
       const cleanKey = cleanTaskBody(b.content).toLowerCase();
@@ -51,9 +52,13 @@ export function parseMarkdownIntoBlocks(rawMarkdown, existingBlocks = []) {
         existingTaskMap.set(cleanKey, []);
       }
       existingTaskMap.get(cleanKey).push(b);
+      if (typeof b.createdSeq === 'number' && b.createdSeq > maxExistingSeq) {
+        maxExistingSeq = b.createdSeq;
+      }
     }
   }
 
+  let nextSeq = maxExistingSeq + 1;
   let currentSection = 'General';
   let lastParentTaskId = null;
 
@@ -101,7 +106,13 @@ export function parseMarkdownIntoBlocks(rawMarkdown, existingBlocks = []) {
         : '';
       const cleanKey = bodyText.trim().toLowerCase();
       const candidates = existingTaskMap.get(cleanKey) || [];
-      const matched = candidates.find((c) => !usedIds.has(c.id)) || existingBlocks[index];
+      const positionalCandidate =
+        existingBlocks.length === lines.length ? existingBlocks[index] : undefined;
+      const matched =
+        candidates.find((c) => !usedIds.has(c.id)) ||
+        (positionalCandidate?.type === 'task' && !usedIds.has(positionalCandidate.id)
+          ? positionalCandidate
+          : undefined);
 
       const id =
         matched && matched.type === 'task' && !usedIds.has(matched.id)
@@ -117,6 +128,10 @@ export function parseMarkdownIntoBlocks(rawMarkdown, existingBlocks = []) {
       if (!isSubtask) {
         lastParentTaskId = id;
       }
+
+      const createdSeq =
+        typeof matched?.createdSeq === 'number' ? matched.createdSeq : nextSeq++;
+      const createdAt = matched?.createdAt || new Date().toISOString();
 
       return {
         id,
@@ -139,6 +154,8 @@ export function parseMarkdownIntoBlocks(rawMarkdown, existingBlocks = []) {
         isSubtask,
         parentId,
         indentLevel: indentSpaces > 0 ? Math.max(1, Math.floor(indentSpaces / 2)) : 0,
+        createdSeq,
+        createdAt,
       };
     }
 
@@ -224,6 +241,29 @@ export async function loadStore() {
   try {
     const raw = await fs.readFile(WORKSPACE_FILE, 'utf8');
     const parsed = JSON.parse(raw);
+    if (parsed?.doc?.blocks) {
+      let maxSeq = 0;
+      let needsSeq = false;
+      for (const b of parsed.doc.blocks) {
+        if (b.type === 'task') {
+          if (typeof b.createdSeq === 'number') {
+            if (b.createdSeq > maxSeq) maxSeq = b.createdSeq;
+          } else {
+            needsSeq = true;
+          }
+        }
+      }
+      if (needsSeq) {
+        let s = maxSeq + 1;
+        for (const b of parsed.doc.blocks) {
+          if (b.type === 'task' && typeof b.createdSeq !== 'number') {
+            b.createdSeq = s++;
+            if (!b.createdAt) b.createdAt = new Date().toISOString();
+          }
+        }
+        await saveStore(parsed);
+      }
+    }
     return parsed;
   } catch {
     const initial = createInitialStore();
@@ -241,7 +281,18 @@ export async function saveStore(store) {
 }
 
 export async function resetStoreToDefault() {
+  let existingGarden;
+  try {
+    const raw = await fs.readFile(WORKSPACE_FILE, 'utf8');
+    const parsed = JSON.parse(raw);
+    existingGarden = parsed?.garden;
+  } catch {
+    // ignore
+  }
   const initial = createInitialStore();
+  if (existingGarden) {
+    initial.garden = existingGarden;
+  }
   await saveStore(initial);
   return initial;
 }

@@ -6,6 +6,8 @@ import {
   KiroModelOption,
 } from '../types/haru';
 import { TaskControlBar } from './TaskControlBar';
+import { GardenView } from './garden/GardenView';
+import { GardenGameState, GardenGameActions, RewardEvent } from './garden/game/gameTypes';
 import {
   renderInlineMarkdown,
   cleanTaskBody,
@@ -16,6 +18,10 @@ interface SimpleInlineEditorProps {
   doc: HaruDocument;
   agents: KiroAgentOption[];
   models: KiroModelOption[];
+  game: GardenGameState;
+  gameActions: GardenGameActions;
+  now: number;
+  recentRewards: RewardEvent[];
   onChangeRawMarkdown: (nextMarkdown: string) => void;
   onToggleTask: (blockId: string) => void;
   onChangeAgent: (blockId: string, agent: string) => void;
@@ -24,12 +30,16 @@ interface SimpleInlineEditorProps {
   onGoToSession: (block: HaruBlock) => void;
 }
 
-type ViewMode = 'split' | 'interactive' | 'editor';
+type ViewMode = 'split' | 'interactive' | 'editor' | 'garden';
 
 export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
   doc,
   agents,
   models,
+  game,
+  gameActions,
+  now,
+  recentRewards,
   onChangeRawMarkdown,
   onToggleTask,
   onChangeAgent,
@@ -37,7 +47,26 @@ export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
   onRunSession,
   onGoToSession,
 }) => {
-  const [viewMode, setViewMode] = useState<ViewMode>('split');
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    try {
+      const saved = localStorage.getItem('haru.viewMode.v1');
+      if (saved === 'split' || saved === 'interactive' || saved === 'editor' || saved === 'garden') {
+        return saved;
+      }
+    } catch {
+      // ignore
+    }
+    return 'split';
+  });
+
+  const handleChangeViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem('haru.viewMode.v1', mode);
+    } catch {
+      // ignore
+    }
+  };
   const [editingBlockId, setEditingBlockId] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -120,30 +149,34 @@ export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
       <div className="haru-simple-toolbar">
         {/* Quick Inserters */}
         <div className="haru-toolbar-left">
-          <button
-            type="button"
-            className="haru-btn"
-            onClick={() => handleInsertSnippet('\n[ ] ')}
-            title="Add task checklist item"
-          >
-            + Task
-          </button>
-          <button
-            type="button"
-            className="haru-btn"
-            onClick={() => handleInsertSnippet('\n1. ')}
-            title="Add numbered task list item"
-          >
-            + 1. Numbered Task
-          </button>
-          <button
-            type="button"
-            className="haru-btn"
-            onClick={() => handleInsertSnippet('\n\n# New Section\n')}
-            title="Add section heading"
-          >
-            + Section
-          </button>
+          {viewMode !== 'garden' && (
+            <>
+              <button
+                type="button"
+                className="haru-btn"
+                onClick={() => handleInsertSnippet('\n[ ] ')}
+                title="Add task checklist item"
+              >
+                + Task
+              </button>
+              <button
+                type="button"
+                className="haru-btn"
+                onClick={() => handleInsertSnippet('\n1. ')}
+                title="Add numbered task list item"
+              >
+                + 1. Numbered Task
+              </button>
+              <button
+                type="button"
+                className="haru-btn"
+                onClick={() => handleInsertSnippet('\n\n# New Section\n')}
+                title="Add section heading"
+              >
+                + Section
+              </button>
+            </>
+          )}
         </div>
 
         {/* View Mode Switcher */}
@@ -152,7 +185,7 @@ export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
             <button
               type="button"
               className={`haru-segment-btn ${viewMode === 'split' ? 'active' : ''}`}
-              onClick={() => setViewMode('split')}
+              onClick={() => handleChangeViewMode('split')}
               title="Side-by-side: Markdown Editor + Live Task Runner"
             >
               Split View
@@ -160,7 +193,7 @@ export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
             <button
               type="button"
               className={`haru-segment-btn ${viewMode === 'interactive' ? 'active' : ''}`}
-              onClick={() => setViewMode('interactive')}
+              onClick={() => handleChangeViewMode('interactive')}
               title="Full width Task Runner with Run buttons & Agent selector"
             >
               Task Runner
@@ -168,10 +201,18 @@ export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
             <button
               type="button"
               className={`haru-segment-btn ${viewMode === 'editor' ? 'active' : ''}`}
-              onClick={() => setViewMode('editor')}
+              onClick={() => handleChangeViewMode('editor')}
               title="Full width Markdown Editor"
             >
               Markdown
+            </button>
+            <button
+              type="button"
+              className={`haru-segment-btn ${viewMode === 'garden' ? 'active' : ''}`}
+              onClick={() => handleChangeViewMode('garden')}
+              title="Cute Mochi Bud parade ordered by how you added tasks"
+            >
+              🌱 Garden
             </button>
           </div>
         </div>
@@ -438,6 +479,26 @@ export const SimpleInlineEditor: React.FC<SimpleInlineEditorProps> = ({
               })}
             </div>
           </div>
+        )}
+
+        {/* Garden View */}
+        {viewMode === 'garden' && (
+          <GardenView
+            doc={doc}
+            agents={agents}
+            models={models}
+            game={game}
+            gameActions={gameActions}
+            now={now}
+            recentRewards={recentRewards}
+            onChangeRawMarkdown={onChangeRawMarkdown}
+            onToggleTask={onToggleTask}
+            onUpdateBlockContent={handleUpdateBlockContent}
+            onChangeAgent={onChangeAgent}
+            onChangeModel={onChangeModel}
+            onRunSession={onRunSession}
+            onGoToSession={onGoToSession}
+          />
         )}
       </div>
     </div>
